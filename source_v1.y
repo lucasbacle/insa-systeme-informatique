@@ -1,6 +1,10 @@
 
 %{
-    #include <stdio.h>
+	#include <stdio.h>
+	#include <stdlib.h>
+
+	extern FILE *yyin;
+	extern FILE *yyout;
 	int yydebug = 1;
 %}
 
