@@ -58,8 +58,24 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 
 int yyerror(void){}
 
-int main(){
-    yyparse();
+int main(int argc, char *argv[]) {
+	if (argc == 3) {
+		yyout = fopen(argv[2], "w");
+		yyin = fopen(argv[1], "r");
+		
+		if (yyparse()==0){
+			printf("OK\n");
+		} else {
+			printf("PAS OK\n");
+		}
+		
+		fclose(yyin);
+		fclose(yyout);
+	} else {
+		printf("Wrong usage !\n");
+	}
+	
+	return 0;
 }
 
 
