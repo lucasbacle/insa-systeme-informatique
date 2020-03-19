@@ -1,5 +1,4 @@
 #include "symbols.h"
-#include "stdlib.h"
 
 SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier)
 {
@@ -15,7 +14,6 @@ SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier)
 
         if (get_symbol_by_name(name) == NULL)
         {
-
             symbol = malloc(sizeof(SYMBOL));
             symbol->addr = (address += 4);
             symbol->name = strdup(name);
@@ -24,8 +22,9 @@ SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier)
             symbol->isInitialized = 0;
             length++;
         }
+        printf("%s, @=%d", symbol->name, symbol->addr);
     }
-
+    
     return symbol;
 }
 

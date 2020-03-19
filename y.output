@@ -6,9 +6,9 @@ Terminaux inutilisés dans la grammaire
 
 Grammaire
 
-    0 $accept: S $end
+    0 $accept: PROGRAM $end
 
-    1 S: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
+    1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
 
     2 RETURN_TYPE: TYPE
     3            | %empty
@@ -81,7 +81,7 @@ Non-terminaux, suivis des règles où ils apparaissent
 
 $accept (22)
     à gauche: 0
-S (23)
+PROGRAM (23)
     à gauche: 1, à droite: 0
 RETURN_TYPE (24)
     à gauche: 2 3, à droite: 1
@@ -114,13 +114,13 @@ $@1 (36)
 
 État 0
 
-    0 $accept: . S $end
+    0 $accept: . PROGRAM $end
 
     tINT  décalage et aller à l'état 1
 
     $défaut  réduction par utilisation de la règle 3 (RETURN_TYPE)
 
-    S            aller à l'état 2
+    PROGRAM      aller à l'état 2
     RETURN_TYPE  aller à l'état 3
     TYPE         aller à l'état 4
 
@@ -134,14 +134,14 @@ $@1 (36)
 
 État 2
 
-    0 $accept: S . $end
+    0 $accept: PROGRAM . $end
 
     $end  décalage et aller à l'état 5
 
 
 État 3
 
-    1 S: RETURN_TYPE . tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
+    1 PROGRAM: RETURN_TYPE . tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
 
     tMAIN  décalage et aller à l'état 6
 
@@ -155,28 +155,28 @@ $@1 (36)
 
 État 5
 
-    0 $accept: S $end .
+    0 $accept: PROGRAM $end .
 
     $défaut  accepter
 
 
 État 6
 
-    1 S: RETURN_TYPE tMAIN . tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
+    1 PROGRAM: RETURN_TYPE tMAIN . tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
 
     tOPENED_PARENTHESIS  décalage et aller à l'état 7
 
 
 État 7
 
-    1 S: RETURN_TYPE tMAIN tOPENED_PARENTHESIS . tCLOSED_PARENTHESIS BODY
+    1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS . tCLOSED_PARENTHESIS BODY
 
     tCLOSED_PARENTHESIS  décalage et aller à l'état 8
 
 
 État 8
 
-    1 S: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS . BODY
+    1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS . BODY
 
     tOPENED_C_BRACKET  décalage et aller à l'état 9
 
@@ -200,9 +200,9 @@ $@1 (36)
 
 État 10
 
-    1 S: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY .
+    1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY .
 
-    $défaut  réduction par utilisation de la règle 1 (S)
+    $défaut  réduction par utilisation de la règle 1 (PROGRAM)
 
 
 État 11

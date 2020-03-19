@@ -1,3 +1,8 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "error.h"
+
 #define MAX_SYMBOLS 128
 
 typedef unsigned int address_t;
