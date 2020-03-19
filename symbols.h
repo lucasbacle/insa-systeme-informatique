@@ -21,7 +21,7 @@ typedef struct Symbol {
 } SYMBOL;
 
 SYMBOL symbols_array[MAX_SYMBOLS];
-int index = 0;
+int length = 0;
 
 SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier);
 
