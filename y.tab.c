@@ -62,7 +62,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "source_v1.y" /* yacc.c:339  */
+#line 1 "source_v2.y" /* yacc.c:339  */
 
 	#include <stdio.h>
 	#include <stdlib.h>
@@ -463,9 +463,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    20,    20,    21,    21,    23,    24,    24,    25,    25,
-      26,    26,    28,    29,    31,    33,    35,    38,    38,    40,
-      42,    44,    45,    47,    49,    51,    53,    55,    57,    56
+       0,    18,    18,    19,    19,    21,    22,    22,    23,    23,
+      24,    24,    26,    27,    29,    31,    33,    36,    36,    38,
+      40,    42,    43,    45,    47,    49,    51,    53,    55,    54
 };
 #endif
 
@@ -1275,103 +1275,103 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 20 "source_v1.y" /* yacc.c:1646  */
+#line 18 "source_v2.y" /* yacc.c:1646  */
     {printf("S\n");}
 #line 1281 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 23 "source_v1.y" /* yacc.c:1646  */
+#line 21 "source_v2.y" /* yacc.c:1646  */
     {printf("BODY\n");}
 #line 1287 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 25 "source_v1.y" /* yacc.c:1646  */
+#line 23 "source_v2.y" /* yacc.c:1646  */
     {printf("LISTE_INSTRUCTIONS\n");}
 #line 1293 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 26 "source_v1.y" /* yacc.c:1646  */
+#line 24 "source_v2.y" /* yacc.c:1646  */
     {printf("INSTRUCTION\n");}
 #line 1299 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 28 "source_v1.y" /* yacc.c:1646  */
+#line 26 "source_v2.y" /* yacc.c:1646  */
     {printf("TYPE\n");}
 #line 1305 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 32 "source_v1.y" /* yacc.c:1646  */
+#line 30 "source_v2.y" /* yacc.c:1646  */
     {printf("DECLARATION CONST\n");}
 #line 1311 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 34 "source_v1.y" /* yacc.c:1646  */
+#line 32 "source_v2.y" /* yacc.c:1646  */
     {printf("DECLARATION SANS AFFECTATION\n");}
 #line 1317 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 36 "source_v1.y" /* yacc.c:1646  */
+#line 34 "source_v2.y" /* yacc.c:1646  */
     {printf("DECLARATION AVEC AFFECTATION\n");}
 #line 1323 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 40 "source_v1.y" /* yacc.c:1646  */
+#line 38 "source_v2.y" /* yacc.c:1646  */
     {printf("AFFECTATION\n");}
 #line 1329 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 42 "source_v1.y" /* yacc.c:1646  */
+#line 40 "source_v2.y" /* yacc.c:1646  */
     {printf("AFFICHAGE\n");}
 #line 1335 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 46 "source_v1.y" /* yacc.c:1646  */
+#line 44 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPR*EXPR\n");}
 #line 1341 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 48 "source_v1.y" /* yacc.c:1646  */
+#line 46 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPR/EXPR\n");}
 #line 1347 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 50 "source_v1.y" /* yacc.c:1646  */
+#line 48 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPR+EXPR\n");}
 #line 1353 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 52 "source_v1.y" /* yacc.c:1646  */
+#line 50 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPR-EXPR\n");}
 #line 1359 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 54 "source_v1.y" /* yacc.c:1646  */
+#line 52 "source_v2.y" /* yacc.c:1646  */
     {printf("IDENTIFIER\n");}
 #line 1365 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 57 "source_v1.y" /* yacc.c:1646  */
+#line 55 "source_v2.y" /* yacc.c:1646  */
     {printf("NUMBER\n");}
 #line 1371 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 58 "source_v1.y" /* yacc.c:1646  */
+#line 56 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPRESSION\n");}
 #line 1377 "y.tab.c" /* yacc.c:1646  */
     break;
@@ -1605,7 +1605,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 60 "source_v1.y" /* yacc.c:1906  */
+#line 58 "source_v2.y" /* yacc.c:1906  */
 
 
 int yyerror(void){}
