@@ -20,8 +20,9 @@ typedef struct Symbol {
     int isInitialized;
 } SYMBOL;
 
-SYMBOL symbols_array[MAX_SYMBOLS];
+SYMBOL *symbols_array[MAX_SYMBOLS];
 int length = 0;
+int address = 0;
 
 SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier);
 
