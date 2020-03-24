@@ -12,14 +12,17 @@
 
 %token <nb> tNUMBER
 %token <var> tIDENTIFIER
-
 %token tCOMMA tSEMI_COLUMN tSLASH tSTAR tPLUS tMINUS tEQUAL tCLOSED_PARENTHESIS tOPENED_PARENTHESIS tVOID tCONST tINT tMAIN tOPENED_C_BRACKET tCLOSED_C_BRACKET tRETURN tPRINTF
+
+// TODO: %type
+%type <nb> EXPRESSION
 
 %right tEQUAL
 %left tPLUS tMINUS
 %left tSTAR tSLASH
 
 %start PROGRAM
+
 %%
 
 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY {printf("S\n");};
@@ -43,6 +46,7 @@ DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 LIST_IDENTIFIER: tIDENTIFIER {$$="ma_variable";}| tIDENTIFIER tCOMMA LIST_IDENTIFIER;
 
 AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN {printf("AFC @resultat EXPR\n");};
+// TODO: COP @expr @resultat
 
 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN {printf("AFFICHAGE\n");};
 
@@ -51,16 +55,21 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{printf("EXPR*EXPR\n");}
 	|EXPRESSION tSLASH EXPRESSION 
 		{printf("EXPR/EXPR\n");}
-	|EXPRESSION tPLUS EXPRESSION 
+	|EXPRESSION tPLUS EXPRESSION
+		// return adresse temporaire du resultat 
 		{printf("EXPR+EXPR\n");}
 	|EXPRESSION tMINUS EXPRESSION 
 		{printf("EXPR-EXPR\n");}
 	|tIDENTIFIER
 		{printf("IDENTIFIER\n");}
+	// TODO: chercher dans la table des symbole puis return adresse de la var (int)
 	|tMINUS EXPRESSION %prec tSTAR
 	|tNUMBER 
 		{printf("NUMBER\n");}
+	// TODO: chercher dans la table des symbole temporaire puis return adresse de la var (int).
+	// LES METTRE A LA FIN et remonter :)
 	{printf("EXPRESSION\n");};
+	
 
 %%
 
