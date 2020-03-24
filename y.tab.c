@@ -62,16 +62,17 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 5 "source_v2.y" /* yacc.c:339  */
+#line 1 "source_v2.y" /* yacc.c:339  */
 
 	#include <stdio.h>
 	#include <stdlib.h>
+	#include "symbols.h"
 
 	extern FILE *yyin;
 	extern FILE *yyout;
 	int yydebug = 0;
 
-#line 75 "y.tab.c" /* yacc.c:339  */
+#line 76 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -100,12 +101,6 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
-/* "%code requires" blocks.  */
-#line 1 "source_v2.y" /* yacc.c:355  */
-
-    #include "symbols.h"
-
-#line 109 "y.tab.c" /* yacc.c:355  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -170,7 +165,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 174 "y.tab.c" /* yacc.c:358  */
+#line 169 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -469,9 +464,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    23,    23,    24,    24,    26,    27,    27,    28,    28,
-      29,    29,    31,    32,    34,    36,    38,    41,    41,    43,
-      45,    47,    48,    50,    52,    54,    56,    58,    60,    59
+       0,    20,    20,    21,    21,    23,    24,    24,    25,    25,
+      26,    26,    28,    29,    31,    33,    35,    38,    38,    40,
+      42,    44,    45,    47,    49,    51,    53,    55,    57,    56
 };
 #endif
 
@@ -1281,121 +1276,121 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 23 "source_v2.y" /* yacc.c:1646  */
+#line 20 "source_v2.y" /* yacc.c:1646  */
     {printf("S\n");}
-#line 1287 "y.tab.c" /* yacc.c:1646  */
+#line 1282 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 26 "source_v2.y" /* yacc.c:1646  */
+#line 23 "source_v2.y" /* yacc.c:1646  */
     {printf("BODY\n");}
-#line 1293 "y.tab.c" /* yacc.c:1646  */
+#line 1288 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 28 "source_v2.y" /* yacc.c:1646  */
+#line 25 "source_v2.y" /* yacc.c:1646  */
     {printf("LISTE_INSTRUCTIONS\n");}
-#line 1299 "y.tab.c" /* yacc.c:1646  */
+#line 1294 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 29 "source_v2.y" /* yacc.c:1646  */
+#line 26 "source_v2.y" /* yacc.c:1646  */
     {printf("INSTRUCTION\n");}
-#line 1305 "y.tab.c" /* yacc.c:1646  */
+#line 1300 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 31 "source_v2.y" /* yacc.c:1646  */
+#line 28 "source_v2.y" /* yacc.c:1646  */
     {(yyval)=Integer;}
-#line 1311 "y.tab.c" /* yacc.c:1646  */
+#line 1306 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 32 "source_v2.y" /* yacc.c:1646  */
+#line 29 "source_v2.y" /* yacc.c:1646  */
     {(yyval)=Const;}
-#line 1317 "y.tab.c" /* yacc.c:1646  */
+#line 1312 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 35 "source_v2.y" /* yacc.c:1646  */
+#line 32 "source_v2.y" /* yacc.c:1646  */
     {printf("DECLARATION CONST\n");}
-#line 1323 "y.tab.c" /* yacc.c:1646  */
+#line 1318 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 37 "source_v2.y" /* yacc.c:1646  */
+#line 34 "source_v2.y" /* yacc.c:1646  */
     {create_symbol((yyvsp[-1]), (yyvsp[-2]), Nothing);}
-#line 1329 "y.tab.c" /* yacc.c:1646  */
+#line 1324 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 39 "source_v2.y" /* yacc.c:1646  */
+#line 36 "source_v2.y" /* yacc.c:1646  */
     {printf("DECLARATION AVEC AFFECTATION\n");}
-#line 1335 "y.tab.c" /* yacc.c:1646  */
+#line 1330 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 41 "source_v2.y" /* yacc.c:1646  */
+#line 38 "source_v2.y" /* yacc.c:1646  */
     {(yyval)="ma_variable";}
-#line 1341 "y.tab.c" /* yacc.c:1646  */
+#line 1336 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 43 "source_v2.y" /* yacc.c:1646  */
+#line 40 "source_v2.y" /* yacc.c:1646  */
     {printf("AFC @resultat EXPR\n");}
-#line 1347 "y.tab.c" /* yacc.c:1646  */
+#line 1342 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 45 "source_v2.y" /* yacc.c:1646  */
+#line 42 "source_v2.y" /* yacc.c:1646  */
     {printf("AFFICHAGE\n");}
-#line 1353 "y.tab.c" /* yacc.c:1646  */
+#line 1348 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 49 "source_v2.y" /* yacc.c:1646  */
+#line 46 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPR*EXPR\n");}
-#line 1359 "y.tab.c" /* yacc.c:1646  */
+#line 1354 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 51 "source_v2.y" /* yacc.c:1646  */
+#line 48 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPR/EXPR\n");}
-#line 1365 "y.tab.c" /* yacc.c:1646  */
+#line 1360 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 53 "source_v2.y" /* yacc.c:1646  */
+#line 50 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPR+EXPR\n");}
-#line 1371 "y.tab.c" /* yacc.c:1646  */
+#line 1366 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 55 "source_v2.y" /* yacc.c:1646  */
+#line 52 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPR-EXPR\n");}
-#line 1377 "y.tab.c" /* yacc.c:1646  */
+#line 1372 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 57 "source_v2.y" /* yacc.c:1646  */
+#line 54 "source_v2.y" /* yacc.c:1646  */
     {printf("IDENTIFIER\n");}
-#line 1383 "y.tab.c" /* yacc.c:1646  */
+#line 1378 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 60 "source_v2.y" /* yacc.c:1646  */
+#line 57 "source_v2.y" /* yacc.c:1646  */
     {printf("NUMBER\n");}
-#line 1389 "y.tab.c" /* yacc.c:1646  */
+#line 1384 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 61 "source_v2.y" /* yacc.c:1646  */
+#line 58 "source_v2.y" /* yacc.c:1646  */
     {printf("EXPRESSION\n");}
-#line 1395 "y.tab.c" /* yacc.c:1646  */
+#line 1390 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1399 "y.tab.c" /* yacc.c:1646  */
+#line 1394 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1623,10 +1618,8 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 63 "source_v2.y" /* yacc.c:1906  */
+#line 60 "source_v2.y" /* yacc.c:1906  */
 
-
-int yyerror(void){}
 
 int main(int argc, char *argv[]) {
 	if (argc == 3) {

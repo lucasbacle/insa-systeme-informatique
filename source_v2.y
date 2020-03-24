@@ -2,7 +2,6 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include "symbols.h"
-	#include "error.h"
 
 	extern FILE *yyin;
 	extern FILE *yyout;
