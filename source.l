@@ -29,22 +29,9 @@ return return tRETURN;
 
 printf return tPRINTF;
 
-[0-9]+e[0-9]+|[0-9]+ return tNUMBER;
-[a-z|A-Z|_][a-z|A-Z|0-9|_]* return tIDENTIFIER;
+[0-9]+e[0-9]+|[0-9]+ {yylval.nb = atof(yytext; return tNUMBER;};
+[a-z|A-Z|_][a-z|A-Z|0-9|_]* {yylval.var = strdup(yytext); return tIDENTIFIER;};
 
 %%
 
 int yywrap(void){}
-
-/* int main(void){main:
-    lex source_v2.lex
-    gcc
-    yacc
-    
-
-    printf("Début\n");
-    yylex();
-    printf("Fin\n");
-    return 0;
-}
- */

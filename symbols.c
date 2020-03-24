@@ -18,7 +18,7 @@ SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier)
         if (get_symbol_by_name(name) == NULL)
         {
             symbol = malloc(sizeof(SYMBOL));
-            symbol->addr = (address += 4);
+            symbol->addr = (address += 1);
             symbol->name = strdup(name);
             symbol->type = type;
             symbol->qualifier = qualifier;
