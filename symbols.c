@@ -1,7 +1,6 @@
 #include "symbols.h"
 
 int length = 0;
-int address = 0;
 
 SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier)
 {
@@ -15,23 +14,22 @@ SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier)
     if (length < MAX_SYMBOLS)
     {
 
-        if (get_symbol_by_name(name) == NULL)
+        if (get_symbol_by_name(name) == -1)
         {
             symbol = malloc(sizeof(SYMBOL));
-            symbol->addr = (address += 1);
             symbol->name = strdup(name);
             symbol->type = type;
             symbol->qualifier = qualifier;
             symbol->isInitialized = 0;
+            symbols_array[length]=symbol;
             length++;
         }
         printf("%s, @=%d", symbol->name, symbol->addr);
     }
-    
-    return symbol;
+    return length-1;
 }
 
-SYMBOL *get_symbol_by_name(const char *name)
+int get_symbol_by_name(const char *name)
 {
     SYMBOL *s = NULL;
     int i = 0;
@@ -40,19 +38,11 @@ SYMBOL *get_symbol_by_name(const char *name)
     while (i < length && !find)
     {
         if (strcmp(symbols_array[i]->name, name) == 0)
-            s = symbols_array[i];
-        find = 1;
+        {
+            find = 1;
+            return i;
+        }
+        i++;
     }
-
-    return s;
-}
-
-SYMBOL *get_symbol_by_index(int index)
-{
-    if (index >= length)
-    {
-        return NULL;
-    }
-
-    return symbols_array[index];
+    return -1;
 }

@@ -14,8 +14,7 @@
 %token <var> tIDENTIFIER
 %token tCOMMA tSEMI_COLUMN tSLASH tSTAR tPLUS tMINUS tEQUAL tCLOSED_PARENTHESIS tOPENED_PARENTHESIS tVOID tCONST tINT tMAIN tOPENED_C_BRACKET tCLOSED_C_BRACKET tRETURN tPRINTF
 
-// TODO: %type
-%type <nb> EXPRESSION
+%type <nb> EXPRESSION,TYPE,TYPE_OPTION
 
 %right tEQUAL
 %left tPLUS tMINUS
@@ -43,7 +42,7 @@ DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 		{printf("DECLARATION AVEC AFFECTATION\n");};
 
-LIST_IDENTIFIER: tIDENTIFIER {$$="ma_variable";}| tIDENTIFIER tCOMMA LIST_IDENTIFIER;
+//LIST_IDENTIFIER: tIDENTIFIER {$$="ma_variable";}| tIDENTIFIER tCOMMA LIST_IDENTIFIER;
 
 AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN {printf("AFC @resultat EXPR\n");};
 // TODO: COP @expr @resultat
@@ -52,24 +51,41 @@ AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COL
 
 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 	|EXPRESSION tSTAR EXPRESSION 
-		{printf("EXPR*EXPR\n");}
+		{
+			int tmp=create_tmp();
+			printf("MUL %d %d %d",tmp,$1,$2);
+			$$=tmp;
+		}
 	|EXPRESSION tSLASH EXPRESSION 
-		{printf("EXPR/EXPR\n");}
+		{
+			int tmp=create_tmp();
+			printf("DIV %d %d %d",tmp,$1,$2);
+			$$=tmp;
+		}
 	|EXPRESSION tPLUS EXPRESSION
-		// return adresse temporaire du resultat 
-		{printf("EXPR+EXPR\n");}
+		{
+			int tmp=create_tmp();
+			printf("ADD %d %d %d",tmp,$1,$2);
+			$$=tmp;
+		}
 	|EXPRESSION tMINUS EXPRESSION 
-		{printf("EXPR-EXPR\n");}
+		{
+			int tmp=create_tmp();
+			printf("SOU %d %d %d",tmp,$1,$2);
+			$$=tmp;
+		}
 	|tIDENTIFIER
-		{printf("IDENTIFIER\n");}
-	// TODO: chercher dans la table des symbole puis return adresse de la var (int)
+		{$$=get_symbol_by_name($1);}
 	|tMINUS EXPRESSION %prec tSTAR
+		{
+			int tmp=create_tmp();
+			$$=tmp;
+		}
 	|tNUMBER 
-		{printf("NUMBER\n");}
-	// TODO: chercher dans la table des symbole temporaire puis return adresse de la var (int).
-	// LES METTRE A LA FIN et remonter :)
-	{printf("EXPRESSION\n");};
-	
+		{
+			int tmp=create_tmp();
+			$$=tmp;
+		}	
 
 %%
 

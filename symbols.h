@@ -21,14 +21,11 @@ typedef struct Symbol {
     char *name;
     type_t type;
     qualifier_t qualifier;
-    address_t addr;
     int isInitialized;
 } SYMBOL;
 
 SYMBOL *symbols_array[MAX_SYMBOLS];
 
-SYMBOL *create_symbol(const char *name, type_t type, qualifier_t qualifier);
+int create_symbol(const char *name, type_t type, qualifier_t qualifier);
 
-SYMBOL *get_symbol_by_name(const char *name);
-
-SYMBOL *get_symbol_by_index(int index);
+int get_symbol_by_name(const char *name);
