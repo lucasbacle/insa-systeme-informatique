@@ -5,7 +5,7 @@
 
 	extern FILE *yyin;
 	extern FILE *yyout;
-	int yydebug = 0;
+	int yydebug = 1;
 %}
 
 %union {int nb; char * var;}
@@ -14,7 +14,7 @@
 %token <var> tIDENTIFIER
 %token tCOMMA tSEMI_COLUMN tSLASH tSTAR tPLUS tMINUS tEQUAL tCLOSED_PARENTHESIS tOPENED_PARENTHESIS tVOID tCONST tINT tMAIN tOPENED_C_BRACKET tCLOSED_C_BRACKET tRETURN tPRINTF
 
-%type <nb> EXPRESSION,TYPE,TYPE_OPTION
+%type <nb> EXPRESSION TYPE TYPE_OPTION DECLARATION LIST_IDENTIFIER
 
 %right tEQUAL
 %left tPLUS tMINUS
@@ -38,11 +38,11 @@ TYPE_OPTION: tCONST{$$=Const;};
 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 		{printf("DECLARATION CONST\n");}
 	|TYPE LIST_IDENTIFIER tSEMI_COLUMN
-		{create_symbol($2, $1, Nothing);}
+		{$$=create_symbol($2, $1, Nothing);}
 	|TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 		{printf("DECLARATION AVEC AFFECTATION\n");};
 
-//LIST_IDENTIFIER: tIDENTIFIER {$$="ma_variable";}| tIDENTIFIER tCOMMA LIST_IDENTIFIER;
+LIST_IDENTIFIER: tIDENTIFIER {$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER tCOMMA LIST_IDENTIFIER;
 
 AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN {printf("AFC @resultat EXPR\n");};
 // TODO: COP @expr @resultat
@@ -52,38 +52,38 @@ AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COL
 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 	|EXPRESSION tSTAR EXPRESSION 
 		{
-			int tmp=create_tmp();
-			printf("MUL %d %d %d",tmp,$1,$2);
+			int tmp=create_tmp_symbol();
+			fprintf(yyout, "MUL %d %d %d", tmp, $1, $3);
 			$$=tmp;
 		}
 	|EXPRESSION tSLASH EXPRESSION 
 		{
-			int tmp=create_tmp();
-			printf("DIV %d %d %d",tmp,$1,$2);
+			int tmp=create_tmp_symbol();
+			fprintf(yyout, "DIV %d %d %d", tmp, $1, $3);
 			$$=tmp;
 		}
 	|EXPRESSION tPLUS EXPRESSION
 		{
-			int tmp=create_tmp();
-			printf("ADD %d %d %d",tmp,$1,$2);
+			int tmp=create_tmp_symbol();
+			fprintf(yyout, "ADD %d %d %d", tmp, $1, $3);
 			$$=tmp;
 		}
 	|EXPRESSION tMINUS EXPRESSION 
 		{
-			int tmp=create_tmp();
-			printf("SOU %d %d %d",tmp,$1,$2);
+			int tmp=create_tmp_symbol();
+			fprintf(yyout, "SOU %d %d %d", tmp, $1, $3);
 			$$=tmp;
 		}
 	|tIDENTIFIER
 		{$$=get_symbol_by_name($1);}
 	|tMINUS EXPRESSION %prec tSTAR
 		{
-			int tmp=create_tmp();
+			int tmp=create_tmp_symbol();
 			$$=tmp;
 		}
 	|tNUMBER 
 		{
-			int tmp=create_tmp();
+			int tmp=create_tmp_symbol();
 			$$=tmp;
 		}	
 

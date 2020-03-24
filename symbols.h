@@ -28,4 +28,6 @@ SYMBOL *symbols_array[MAX_SYMBOLS];
 
 int create_symbol(const char *name, type_t type, qualifier_t qualifier);
 
+int create_tmp_symbol();
+
 int get_symbol_by_name(const char *name);

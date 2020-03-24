@@ -29,7 +29,7 @@ return return tRETURN;
 
 printf return tPRINTF;
 
-[0-9]+e[0-9]+|[0-9]+ {yylval.nb = atof(yytext; return tNUMBER;};
+[0-9]+e[0-9]+|[0-9]+ {yylval.nb = atof(yytext); return tNUMBER;};
 [a-z|A-Z|_][a-z|A-Z|0-9|_]* {yylval.var = strdup(yytext); return tIDENTIFIER;};
 
 %%
