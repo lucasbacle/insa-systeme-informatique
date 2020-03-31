@@ -5,7 +5,7 @@
 
 	extern FILE *yyin;
 	extern FILE *yyout;
-	int yydebug = 1;
+	int yydebug = 0;
 %}
 
 %union {int nb; char * var;}
@@ -36,15 +36,12 @@ TYPE: tINT {$$=Integer;};
 TYPE_OPTION: tCONST{$$=Const;};
 
 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
-		{printf("DECLARATION CONST\n");}
 	|TYPE LIST_IDENTIFIER tSEMI_COLUMN
-		{$$=create_symbol($2, $1, Nothing);}
-	|TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
-		{printf("DECLARATION AVEC AFFECTATION\n");};
+	|TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN;
 
-LIST_IDENTIFIER: tIDENTIFIER {$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER tCOMMA LIST_IDENTIFIER;
+LIST_IDENTIFIER: tIDENTIFIER{create_symbol($1, Integer, Nothing);}| tIDENTIFIER {create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
 
-AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN {printf("AFC @resultat EXPR\n");};
+AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN {fprintf(yyout,"AFC %d  %d"),get_symbol_by_name($1),$3;};
 // TODO: COP @expr @resultat
 
 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN {printf("AFFICHAGE\n");};
