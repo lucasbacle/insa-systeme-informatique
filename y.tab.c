@@ -120,7 +120,7 @@
 
 	extern FILE *yyin;
 	extern FILE *yyout;
-	int yydebug = 0;
+	int yydebug = 1;
 
 
 /* Enabling traces.  */
@@ -1427,7 +1427,7 @@ yyreduce:
 
   case 17:
 #line 42 "source_v2.y"
-    {create_symbol((yyvsp[(1) - (1)].var), Integer, Nothing);}
+    {(yyval.nb)=create_symbol((yyvsp[(1) - (1)].var), Integer, Nothing);}
     break;
 
   case 18:
@@ -1437,19 +1437,19 @@ yyreduce:
 
   case 20:
 #line 44 "source_v2.y"
-    {fprintf(yyout,"AFC %d = %d"),get_symbol_by_name((yyvsp[(1) - (4)].var)),(yyvsp[(3) - (4)].nb);}
+    {fprintf(yyout,"AFC %d %d\n",get_symbol_by_name((yyvsp[(1) - (4)].var)),(yyvsp[(3) - (4)].nb));}
     break;
 
   case 21:
 #line 47 "source_v2.y"
-    {printf("AFFICHAGE\n");}
+    {fprintf(yyout,"PRI %d\n",get_symbol_by_name((yyvsp[(3) - (5)].var)));}
     break;
 
   case 23:
 #line 51 "source_v2.y"
     {
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "MUL %d %d %d", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			fprintf(yyout, "MUL %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
 			(yyval.nb)=tmp;
 		}
     break;
@@ -1458,7 +1458,7 @@ yyreduce:
 #line 57 "source_v2.y"
     {
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "DIV %d %d %d", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			fprintf(yyout, "DIV %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
 			(yyval.nb)=tmp;
 		}
     break;
@@ -1467,7 +1467,7 @@ yyreduce:
 #line 63 "source_v2.y"
     {
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "ADD %d %d %d", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			fprintf(yyout, "ADD %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
 			(yyval.nb)=tmp;
 		}
     break;
@@ -1476,7 +1476,7 @@ yyreduce:
 #line 69 "source_v2.y"
     {
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "SOU %d %d %d", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			fprintf(yyout, "SOU %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
 			(yyval.nb)=tmp;
 		}
     break;

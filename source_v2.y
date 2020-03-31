@@ -5,7 +5,7 @@
 
 	extern FILE *yyin;
 	extern FILE *yyout;
-	int yydebug = 0;
+	int yydebug = 1;
 %}
 
 %union {int nb; char * var;}
@@ -14,7 +14,7 @@
 %token <var> tIDENTIFIER
 %token tCOMMA tSEMI_COLUMN tSLASH tSTAR tPLUS tMINUS tEQUAL tCLOSED_PARENTHESIS tOPENED_PARENTHESIS tVOID tCONST tINT tMAIN tOPENED_C_BRACKET tCLOSED_C_BRACKET tRETURN tPRINTF
 
-%type <nb> EXPRESSION TYPE TYPE_OPTION DECLARATION LIST_IDENTIFIER
+%type <nb> EXPRESSION TYPE TYPE_OPTION LIST_IDENTIFIER
 
 %right tEQUAL
 %left tPLUS tMINUS
@@ -39,36 +39,36 @@ DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN;
 
-LIST_IDENTIFIER: tIDENTIFIER{create_symbol($1, Integer, Nothing);}| tIDENTIFIER {create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
+LIST_IDENTIFIER: tIDENTIFIER{$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER {create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
 
-AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN {fprintf(yyout,"AFC %d  %d"),get_symbol_by_name($1),$3;};
+AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN {fprintf(yyout,"AFC %d %d\n",get_symbol_by_name($1),$3);};
 // TODO: COP @expr @resultat
 
-AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN {printf("AFFICHAGE\n");};
+AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN {fprintf(yyout,"PRI %d\n",get_symbol_by_name($3));};
 
 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 	|EXPRESSION tSTAR EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "MUL %d %d %d", tmp, $1, $3);
+			fprintf(yyout, "MUL %d %d %d\n", tmp, $1, $3);
 			$$=tmp;
 		}
 	|EXPRESSION tSLASH EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "DIV %d %d %d", tmp, $1, $3);
+			fprintf(yyout, "DIV %d %d %d\n", tmp, $1, $3);
 			$$=tmp;
 		}
 	|EXPRESSION tPLUS EXPRESSION
 		{
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "ADD %d %d %d", tmp, $1, $3);
+			fprintf(yyout, "ADD %d %d %d\n", tmp, $1, $3);
 			$$=tmp;
 		}
 	|EXPRESSION tMINUS EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "SOU %d %d %d", tmp, $1, $3);
+			fprintf(yyout, "SOU %d %d %d\n", tmp, $1, $3);
 			$$=tmp;
 		}
 	|tIDENTIFIER
