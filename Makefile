@@ -1,10 +1,14 @@
-all : comp
+SRC=src/
+all : comp clean
 
-comp : y.tab.o lex.yy.o error.o symbols.o
-	gcc -Wall y.tab.o lex.yy.o error.o symbols.o -o comp
+comp : $(SRC)y.tab.o $(SRC)lex.yy.o $(SRC)error.o $(SRC)symbols.o
+	gcc -Wall $(SRC)*.o -o comp
 
-y.tab.c : source_v2.y
-	yacc --verbose --debug -v -d source_v2.y
+$(SRC)y.tab.c : $(SRC)source_v2.y
+	yacc --verbose --debug -v -d $(SRC)source_v2.y
 
-lex.yy.c : source.l
-	lex source.l
+$(SRC)lex.yy.c : $(SRC)source.l
+	lex -o $(SRC)lex.yy.c $(SRC)source.l 
+
+clean:
+	rm -r $(SRC)*.o
