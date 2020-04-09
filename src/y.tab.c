@@ -112,7 +112,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "source_v2.y"
+#line 1 "src/source_v2.y"
 
 	#include <stdio.h>
 	#include <stdlib.h>
@@ -120,7 +120,7 @@
 
 	extern FILE *yyin;
 	extern FILE *yyout;
-	int yydebug = 1;
+	int yydebug = 0;
 
 
 /* Enabling traces.  */
@@ -143,10 +143,10 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 11 "source_v2.y"
+#line 11 "src/source_v2.y"
 {int nb; char * var;}
 /* Line 193 of yacc.c.  */
-#line 150 "y.tab.c"
+#line 150 "src/y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -159,7 +159,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 163 "y.tab.c"
+#line 163 "src/y.tab.c"
 
 #ifdef short
 # undef short
@@ -455,7 +455,7 @@ static const yytype_uint8 yyrline[] =
 {
        0,    27,    27,    28,    28,    30,    31,    31,    32,    32,
       33,    33,    35,    36,    38,    39,    40,    42,    42,    42,
-      44,    47,    49,    50,    56,    62,    68,    74,    76,    81
+      44,    56,    63,    68,    76,    84,    92,   100,   102,   107
 };
 #endif
 
@@ -1396,98 +1396,126 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 27 "source_v2.y"
+#line 27 "src/source_v2.y"
     {printf("S\n");}
     break;
 
   case 5:
-#line 30 "source_v2.y"
+#line 30 "src/source_v2.y"
     {printf("BODY\n");}
     break;
 
   case 9:
-#line 32 "source_v2.y"
+#line 32 "src/source_v2.y"
     {printf("LISTE_INSTRUCTIONS\n");}
     break;
 
   case 11:
-#line 33 "source_v2.y"
+#line 33 "src/source_v2.y"
     {printf("INSTRUCTION\n");}
     break;
 
   case 12:
-#line 35 "source_v2.y"
+#line 35 "src/source_v2.y"
     {(yyval.nb)=Integer;}
     break;
 
   case 13:
-#line 36 "source_v2.y"
+#line 36 "src/source_v2.y"
     {(yyval.nb)=Const;}
     break;
 
   case 17:
-#line 42 "source_v2.y"
+#line 42 "src/source_v2.y"
     {(yyval.nb)=create_symbol((yyvsp[(1) - (1)].var), Integer, Nothing);}
     break;
 
   case 18:
-#line 42 "source_v2.y"
+#line 42 "src/source_v2.y"
     {create_symbol((yyvsp[(1) - (1)].var), Integer, Nothing);}
     break;
 
   case 20:
-#line 44 "source_v2.y"
-    {fprintf(yyout,"AFC %d %d\n",get_symbol_by_name((yyvsp[(1) - (4)].var)),(yyvsp[(3) - (4)].nb));}
+#line 45 "src/source_v2.y"
+    {
+	char * str;
+	sprintf(str, "AFC %d %d\n",get_symbol_by_name((yyvsp[(1) - (4)].var)),(yyvsp[(3) - (4)].nb));
+	insert(str);
+	if(is_tmp((yyvsp[(3) - (4)].nb)))
+	{
+		pop_tmp();
+	}
+}
     break;
 
   case 21:
-#line 47 "source_v2.y"
-    {fprintf(yyout,"PRI %d\n",get_symbol_by_name((yyvsp[(3) - (5)].var)));}
+#line 57 "src/source_v2.y"
+    {
+	char * str;
+	sprintf(str, "PRI %d\n",get_symbol_by_name((yyvsp[(3) - (5)].var)));
+	insert(str);
+}
+    break;
+
+  case 22:
+#line 64 "src/source_v2.y"
+    {
+			printf("resultat inter : %d\n",(yyvsp[(2) - (3)].nb));
+				(yyval.nb)=(yyvsp[(2) - (3)].nb);
+		}
     break;
 
   case 23:
-#line 51 "source_v2.y"
+#line 69 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "MUL %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			char * str;
+			sprintf(str, "MUL %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			insert(str);
 			(yyval.nb)=tmp;
 		}
     break;
 
   case 24:
-#line 57 "source_v2.y"
+#line 77 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "DIV %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			char * str;
+			sprintf(str, "DIV %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			insert(str); 
 			(yyval.nb)=tmp;
 		}
     break;
 
   case 25:
-#line 63 "source_v2.y"
+#line 85 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "ADD %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			char * str;
+			sprintf(str, "ADD %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			insert(str);
 			(yyval.nb)=tmp;
 		}
     break;
 
   case 26:
-#line 69 "source_v2.y"
+#line 93 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "SOU %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			char * str;
+			sprintf(str, "SOU %d %d %d\n", tmp, (yyvsp[(1) - (3)].nb), (yyvsp[(3) - (3)].nb));
+			insert(str);
 			(yyval.nb)=tmp;
 		}
     break;
 
   case 27:
-#line 75 "source_v2.y"
+#line 101 "src/source_v2.y"
     {(yyval.nb)=get_symbol_by_name((yyvsp[(1) - (1)].var));}
     break;
 
   case 28:
-#line 77 "source_v2.y"
+#line 103 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
 			(yyval.nb)=tmp;
@@ -1495,7 +1523,7 @@ yyreduce:
     break;
 
   case 29:
-#line 82 "source_v2.y"
+#line 108 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
 			(yyval.nb)=tmp;
@@ -1504,7 +1532,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1508 "y.tab.c"
+#line 1536 "src/y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1718,22 +1746,21 @@ yyreturn:
 }
 
 
-#line 87 "source_v2.y"
+#line 113 "src/source_v2.y"
 
 
 int main(int argc, char *argv[]) {
 	if (argc == 3) {
-		yyout = fopen(argv[2], "w");
 		yyin = fopen(argv[1], "r");
 		
 		if (yyparse()==0){
 			printf("OK\n");
+			writeFile(argv[2]);
 		} else {
 			printf("PAS OK\n");
 		}
 		
 		fclose(yyin);
-		fclose(yyout);
 	} else {
 		printf("Wrong usage !\n");
 	}

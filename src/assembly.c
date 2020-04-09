@@ -26,8 +26,8 @@ void patch(int from, int to){
         {
             char *debut=strdup(aux->instruction);
             char *add;
-            sprintf(str, "%d", to);
-            char *strcat(debut,add );
+            sprintf(add, "%d", to);
+            debut= strcat(debut,add );
             aux->instruction = debut;
         }
 
@@ -42,7 +42,3 @@ void writeFile(char * fileName){
     }
     fclose(fileName);
 }
-typedef struct listeInstruction{
-    char * instruction;
-    LISTE * next;
-} ;

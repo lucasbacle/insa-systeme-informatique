@@ -5,7 +5,7 @@
 
 	extern FILE *yyin;
 	extern FILE *yyout;
-	int yydebug = 1;
+	int yydebug = 0;
 %}
 
 %union {int nb; char * var;}
@@ -41,34 +41,60 @@ DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 
 LIST_IDENTIFIER: tIDENTIFIER{$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER {create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
 
-AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN {fprintf(yyout,"AFC %d %d\n",get_symbol_by_name($1),$3);};
+AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN 
+{
+	char * str;
+	sprintf(str, "AFC %d %d\n",get_symbol_by_name($1),$3);
+	insert(str);
+	if(is_tmp($3))
+	{
+		pop_tmp();
+	}
+};
 // TODO: COP @expr @resultat
 
-AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN {fprintf(yyout,"PRI %d\n",get_symbol_by_name($3));};
+AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN 
+{
+	char * str;
+	sprintf(str, "PRI %d\n",get_symbol_by_name($3));
+	insert(str);
+};
 
 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
+		{
+			printf("resultat inter : %d\n",$2);
+				$$=$2;
+		}
 	|EXPRESSION tSTAR EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "MUL %d %d %d\n", tmp, $1, $3);
+			char * str;
+			sprintf(str, "MUL %d %d %d\n", tmp, $1, $3);
+			insert(str);
 			$$=tmp;
 		}
 	|EXPRESSION tSLASH EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "DIV %d %d %d\n", tmp, $1, $3);
+			char * str;
+			sprintf(str, "DIV %d %d %d\n", tmp, $1, $3);
+			insert(str); 
 			$$=tmp;
 		}
 	|EXPRESSION tPLUS EXPRESSION
 		{
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "ADD %d %d %d\n", tmp, $1, $3);
+			char * str;
+			sprintf(str, "ADD %d %d %d\n", tmp, $1, $3);
+			insert(str);
 			$$=tmp;
 		}
 	|EXPRESSION tMINUS EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			fprintf(yyout, "SOU %d %d %d\n", tmp, $1, $3);
+			char * str;
+			sprintf(str, "SOU %d %d %d\n", tmp, $1, $3);
+			insert(str);
 			$$=tmp;
 		}
 	|tIDENTIFIER
@@ -88,17 +114,16 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 
 int main(int argc, char *argv[]) {
 	if (argc == 3) {
-		yyout = fopen(argv[2], "w");
 		yyin = fopen(argv[1], "r");
 		
 		if (yyparse()==0){
 			printf("OK\n");
+			writeFile(argv[2]);
 		} else {
 			printf("PAS OK\n");
 		}
 		
 		fclose(yyin);
-		fclose(yyout);
 	} else {
 		printf("Wrong usage !\n");
 	}

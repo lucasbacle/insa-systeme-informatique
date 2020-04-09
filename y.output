@@ -1,0 +1,697 @@
+Terminals which are not used
+
+   tVOID
+   tRETURN
+
+
+Grammar
+
+    0 $accept: PROGRAM $end
+
+    1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
+
+    2 RETURN_TYPE: TYPE
+    3            | /* empty */
+
+    4 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET
+
+    5 LISTE_DECLARATIONS: DECLARATION LISTE_DECLARATIONS
+    6                   | /* empty */
+
+    7 LISTE_INSTRUCTIONS: INSTRUCTION LISTE_INSTRUCTIONS
+    8                   | /* empty */
+
+    9 INSTRUCTION: AFFECTATION
+   10            | AFFICHAGE
+
+   11 TYPE: tINT
+
+   12 TYPE_OPTION: tCONST
+
+   13 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
+   14            | TYPE LIST_IDENTIFIER tSEMI_COLUMN
+   15            | TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
+
+   16 LIST_IDENTIFIER: tIDENTIFIER
+
+   17 @1: /* empty */
+
+   18 LIST_IDENTIFIER: tIDENTIFIER @1 tCOMMA LIST_IDENTIFIER
+
+   19 AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
+
+   20 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN
+
+   21 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
+   22           | EXPRESSION tSTAR EXPRESSION
+   23           | EXPRESSION tSLASH EXPRESSION
+   24           | EXPRESSION tPLUS EXPRESSION
+   25           | EXPRESSION tMINUS EXPRESSION
+   26           | tIDENTIFIER
+   27           | tMINUS EXPRESSION
+   28           | tNUMBER
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+tNUMBER (258) 28
+tIDENTIFIER (259) 16 18 19 20 26
+tCOMMA (260) 18
+tSEMI_COLUMN (261) 13 14 15 19 20
+tSLASH (262) 23
+tSTAR (263) 22
+tPLUS (264) 24
+tMINUS (265) 25 27
+tEQUAL (266) 13 15 19
+tCLOSED_PARENTHESIS (267) 1 20 21
+tOPENED_PARENTHESIS (268) 1 20 21
+tVOID (269)
+tCONST (270) 12
+tINT (271) 11
+tMAIN (272) 1
+tOPENED_C_BRACKET (273) 4
+tCLOSED_C_BRACKET (274) 4
+tRETURN (275)
+tPRINTF (276) 20
+
+
+Nonterminals, with rules where they appear
+
+$accept (22)
+    on left: 0
+PROGRAM (23)
+    on left: 1, on right: 0
+RETURN_TYPE (24)
+    on left: 2 3, on right: 1
+BODY (25)
+    on left: 4, on right: 1
+LISTE_DECLARATIONS (26)
+    on left: 5 6, on right: 4 5
+LISTE_INSTRUCTIONS (27)
+    on left: 7 8, on right: 4 7
+INSTRUCTION (28)
+    on left: 9 10, on right: 7
+TYPE (29)
+    on left: 11, on right: 2 13 14 15
+TYPE_OPTION (30)
+    on left: 12, on right: 13
+DECLARATION (31)
+    on left: 13 14 15, on right: 5
+LIST_IDENTIFIER (32)
+    on left: 16 18, on right: 13 14 15 18
+@1 (33)
+    on left: 17, on right: 18
+AFFECTATION (34)
+    on left: 19, on right: 9
+AFFICHAGE (35)
+    on left: 20, on right: 10
+EXPRESSION (36)
+    on left: 21 22 23 24 25 26 27 28, on right: 13 15 19 21 22 23 24
+    25 27
+
+
+state 0
+
+    0 $accept: . PROGRAM $end
+
+    tINT  shift, and go to state 1
+
+    $default  reduce using rule 3 (RETURN_TYPE)
+
+    PROGRAM      go to state 2
+    RETURN_TYPE  go to state 3
+    TYPE         go to state 4
+
+
+state 1
+
+   11 TYPE: tINT .
+
+    $default  reduce using rule 11 (TYPE)
+
+
+state 2
+
+    0 $accept: PROGRAM . $end
+
+    $end  shift, and go to state 5
+
+
+state 3
+
+    1 PROGRAM: RETURN_TYPE . tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
+
+    tMAIN  shift, and go to state 6
+
+
+state 4
+
+    2 RETURN_TYPE: TYPE .
+
+    $default  reduce using rule 2 (RETURN_TYPE)
+
+
+state 5
+
+    0 $accept: PROGRAM $end .
+
+    $default  accept
+
+
+state 6
+
+    1 PROGRAM: RETURN_TYPE tMAIN . tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
+
+    tOPENED_PARENTHESIS  shift, and go to state 7
+
+
+state 7
+
+    1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS . tCLOSED_PARENTHESIS BODY
+
+    tCLOSED_PARENTHESIS  shift, and go to state 8
+
+
+state 8
+
+    1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS . BODY
+
+    tOPENED_C_BRACKET  shift, and go to state 9
+
+    BODY  go to state 10
+
+
+state 9
+
+    4 BODY: tOPENED_C_BRACKET . LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET
+
+    tCONST  shift, and go to state 11
+    tINT    shift, and go to state 1
+
+    $default  reduce using rule 6 (LISTE_DECLARATIONS)
+
+    LISTE_DECLARATIONS  go to state 12
+    TYPE                go to state 13
+    TYPE_OPTION         go to state 14
+    DECLARATION         go to state 15
+
+
+state 10
+
+    1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY .
+
+    $default  reduce using rule 1 (PROGRAM)
+
+
+state 11
+
+   12 TYPE_OPTION: tCONST .
+
+    $default  reduce using rule 12 (TYPE_OPTION)
+
+
+state 12
+
+    4 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS . LISTE_INSTRUCTIONS tCLOSED_C_BRACKET
+
+    tIDENTIFIER  shift, and go to state 16
+    tPRINTF      shift, and go to state 17
+
+    $default  reduce using rule 8 (LISTE_INSTRUCTIONS)
+
+    LISTE_INSTRUCTIONS  go to state 18
+    INSTRUCTION         go to state 19
+    AFFECTATION         go to state 20
+    AFFICHAGE           go to state 21
+
+
+state 13
+
+   14 DECLARATION: TYPE . LIST_IDENTIFIER tSEMI_COLUMN
+   15            | TYPE . LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
+
+    tIDENTIFIER  shift, and go to state 22
+
+    LIST_IDENTIFIER  go to state 23
+
+
+state 14
+
+   13 DECLARATION: TYPE_OPTION . TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
+
+    tINT  shift, and go to state 1
+
+    TYPE  go to state 24
+
+
+state 15
+
+    5 LISTE_DECLARATIONS: DECLARATION . LISTE_DECLARATIONS
+
+    tCONST  shift, and go to state 11
+    tINT    shift, and go to state 1
+
+    $default  reduce using rule 6 (LISTE_DECLARATIONS)
+
+    LISTE_DECLARATIONS  go to state 25
+    TYPE                go to state 13
+    TYPE_OPTION         go to state 14
+    DECLARATION         go to state 15
+
+
+state 16
+
+   19 AFFECTATION: tIDENTIFIER . tEQUAL EXPRESSION tSEMI_COLUMN
+
+    tEQUAL  shift, and go to state 26
+
+
+state 17
+
+   20 AFFICHAGE: tPRINTF . tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN
+
+    tOPENED_PARENTHESIS  shift, and go to state 27
+
+
+state 18
+
+    4 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS . tCLOSED_C_BRACKET
+
+    tCLOSED_C_BRACKET  shift, and go to state 28
+
+
+state 19
+
+    7 LISTE_INSTRUCTIONS: INSTRUCTION . LISTE_INSTRUCTIONS
+
+    tIDENTIFIER  shift, and go to state 16
+    tPRINTF      shift, and go to state 17
+
+    $default  reduce using rule 8 (LISTE_INSTRUCTIONS)
+
+    LISTE_INSTRUCTIONS  go to state 29
+    INSTRUCTION         go to state 19
+    AFFECTATION         go to state 20
+    AFFICHAGE           go to state 21
+
+
+state 20
+
+    9 INSTRUCTION: AFFECTATION .
+
+    $default  reduce using rule 9 (INSTRUCTION)
+
+
+state 21
+
+   10 INSTRUCTION: AFFICHAGE .
+
+    $default  reduce using rule 10 (INSTRUCTION)
+
+
+state 22
+
+   16 LIST_IDENTIFIER: tIDENTIFIER .
+   18                | tIDENTIFIER . @1 tCOMMA LIST_IDENTIFIER
+
+    tCOMMA    reduce using rule 17 (@1)
+    $default  reduce using rule 16 (LIST_IDENTIFIER)
+
+    @1  go to state 30
+
+
+state 23
+
+   14 DECLARATION: TYPE LIST_IDENTIFIER . tSEMI_COLUMN
+   15            | TYPE LIST_IDENTIFIER . tEQUAL EXPRESSION tSEMI_COLUMN
+
+    tSEMI_COLUMN  shift, and go to state 31
+    tEQUAL        shift, and go to state 32
+
+
+state 24
+
+   13 DECLARATION: TYPE_OPTION TYPE . LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
+
+    tIDENTIFIER  shift, and go to state 22
+
+    LIST_IDENTIFIER  go to state 33
+
+
+state 25
+
+    5 LISTE_DECLARATIONS: DECLARATION LISTE_DECLARATIONS .
+
+    $default  reduce using rule 5 (LISTE_DECLARATIONS)
+
+
+state 26
+
+   19 AFFECTATION: tIDENTIFIER tEQUAL . EXPRESSION tSEMI_COLUMN
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 38
+
+
+state 27
+
+   20 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS . tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN
+
+    tIDENTIFIER  shift, and go to state 39
+
+
+state 28
+
+    4 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET .
+
+    $default  reduce using rule 4 (BODY)
+
+
+state 29
+
+    7 LISTE_INSTRUCTIONS: INSTRUCTION LISTE_INSTRUCTIONS .
+
+    $default  reduce using rule 7 (LISTE_INSTRUCTIONS)
+
+
+state 30
+
+   18 LIST_IDENTIFIER: tIDENTIFIER @1 . tCOMMA LIST_IDENTIFIER
+
+    tCOMMA  shift, and go to state 40
+
+
+state 31
+
+   14 DECLARATION: TYPE LIST_IDENTIFIER tSEMI_COLUMN .
+
+    $default  reduce using rule 14 (DECLARATION)
+
+
+state 32
+
+   15 DECLARATION: TYPE LIST_IDENTIFIER tEQUAL . EXPRESSION tSEMI_COLUMN
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 41
+
+
+state 33
+
+   13 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER . tEQUAL EXPRESSION tSEMI_COLUMN
+
+    tEQUAL  shift, and go to state 42
+
+
+state 34
+
+   28 EXPRESSION: tNUMBER .
+
+    $default  reduce using rule 28 (EXPRESSION)
+
+
+state 35
+
+   26 EXPRESSION: tIDENTIFIER .
+
+    $default  reduce using rule 26 (EXPRESSION)
+
+
+state 36
+
+   27 EXPRESSION: tMINUS . EXPRESSION
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 43
+
+
+state 37
+
+   21 EXPRESSION: tOPENED_PARENTHESIS . EXPRESSION tCLOSED_PARENTHESIS
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 44
+
+
+state 38
+
+   19 AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION . tSEMI_COLUMN
+   22 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
+   23           | EXPRESSION . tSLASH EXPRESSION
+   24           | EXPRESSION . tPLUS EXPRESSION
+   25           | EXPRESSION . tMINUS EXPRESSION
+
+    tSEMI_COLUMN  shift, and go to state 45
+    tSLASH        shift, and go to state 46
+    tSTAR         shift, and go to state 47
+    tPLUS         shift, and go to state 48
+    tMINUS        shift, and go to state 49
+
+
+state 39
+
+   20 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER . tCLOSED_PARENTHESIS tSEMI_COLUMN
+
+    tCLOSED_PARENTHESIS  shift, and go to state 50
+
+
+state 40
+
+   18 LIST_IDENTIFIER: tIDENTIFIER @1 tCOMMA . LIST_IDENTIFIER
+
+    tIDENTIFIER  shift, and go to state 22
+
+    LIST_IDENTIFIER  go to state 51
+
+
+state 41
+
+   15 DECLARATION: TYPE LIST_IDENTIFIER tEQUAL EXPRESSION . tSEMI_COLUMN
+   22 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
+   23           | EXPRESSION . tSLASH EXPRESSION
+   24           | EXPRESSION . tPLUS EXPRESSION
+   25           | EXPRESSION . tMINUS EXPRESSION
+
+    tSEMI_COLUMN  shift, and go to state 52
+    tSLASH        shift, and go to state 46
+    tSTAR         shift, and go to state 47
+    tPLUS         shift, and go to state 48
+    tMINUS        shift, and go to state 49
+
+
+state 42
+
+   13 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL . EXPRESSION tSEMI_COLUMN
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 53
+
+
+state 43
+
+   22 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
+   23           | EXPRESSION . tSLASH EXPRESSION
+   24           | EXPRESSION . tPLUS EXPRESSION
+   25           | EXPRESSION . tMINUS EXPRESSION
+   27           | tMINUS EXPRESSION .
+
+    $default  reduce using rule 27 (EXPRESSION)
+
+
+state 44
+
+   21 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION . tCLOSED_PARENTHESIS
+   22           | EXPRESSION . tSTAR EXPRESSION
+   23           | EXPRESSION . tSLASH EXPRESSION
+   24           | EXPRESSION . tPLUS EXPRESSION
+   25           | EXPRESSION . tMINUS EXPRESSION
+
+    tSLASH               shift, and go to state 46
+    tSTAR                shift, and go to state 47
+    tPLUS                shift, and go to state 48
+    tMINUS               shift, and go to state 49
+    tCLOSED_PARENTHESIS  shift, and go to state 54
+
+
+state 45
+
+   19 AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN .
+
+    $default  reduce using rule 19 (AFFECTATION)
+
+
+state 46
+
+   23 EXPRESSION: EXPRESSION tSLASH . EXPRESSION
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 55
+
+
+state 47
+
+   22 EXPRESSION: EXPRESSION tSTAR . EXPRESSION
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 56
+
+
+state 48
+
+   24 EXPRESSION: EXPRESSION tPLUS . EXPRESSION
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 57
+
+
+state 49
+
+   25 EXPRESSION: EXPRESSION tMINUS . EXPRESSION
+
+    tNUMBER              shift, and go to state 34
+    tIDENTIFIER          shift, and go to state 35
+    tMINUS               shift, and go to state 36
+    tOPENED_PARENTHESIS  shift, and go to state 37
+
+    EXPRESSION  go to state 58
+
+
+state 50
+
+   20 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS . tSEMI_COLUMN
+
+    tSEMI_COLUMN  shift, and go to state 59
+
+
+state 51
+
+   18 LIST_IDENTIFIER: tIDENTIFIER @1 tCOMMA LIST_IDENTIFIER .
+
+    $default  reduce using rule 18 (LIST_IDENTIFIER)
+
+
+state 52
+
+   15 DECLARATION: TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN .
+
+    $default  reduce using rule 15 (DECLARATION)
+
+
+state 53
+
+   13 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION . tSEMI_COLUMN
+   22 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
+   23           | EXPRESSION . tSLASH EXPRESSION
+   24           | EXPRESSION . tPLUS EXPRESSION
+   25           | EXPRESSION . tMINUS EXPRESSION
+
+    tSEMI_COLUMN  shift, and go to state 60
+    tSLASH        shift, and go to state 46
+    tSTAR         shift, and go to state 47
+    tPLUS         shift, and go to state 48
+    tMINUS        shift, and go to state 49
+
+
+state 54
+
+   21 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS .
+
+    $default  reduce using rule 21 (EXPRESSION)
+
+
+state 55
+
+   22 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
+   23           | EXPRESSION . tSLASH EXPRESSION
+   23           | EXPRESSION tSLASH EXPRESSION .
+   24           | EXPRESSION . tPLUS EXPRESSION
+   25           | EXPRESSION . tMINUS EXPRESSION
+
+    $default  reduce using rule 23 (EXPRESSION)
+
+
+state 56
+
+   22 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
+   22           | EXPRESSION tSTAR EXPRESSION .
+   23           | EXPRESSION . tSLASH EXPRESSION
+   24           | EXPRESSION . tPLUS EXPRESSION
+   25           | EXPRESSION . tMINUS EXPRESSION
+
+    $default  reduce using rule 22 (EXPRESSION)
+
+
+state 57
+
+   22 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
+   23           | EXPRESSION . tSLASH EXPRESSION
+   24           | EXPRESSION . tPLUS EXPRESSION
+   24           | EXPRESSION tPLUS EXPRESSION .
+   25           | EXPRESSION . tMINUS EXPRESSION
+
+    tSLASH  shift, and go to state 46
+    tSTAR   shift, and go to state 47
+
+    $default  reduce using rule 24 (EXPRESSION)
+
+
+state 58
+
+   22 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
+   23           | EXPRESSION . tSLASH EXPRESSION
+   24           | EXPRESSION . tPLUS EXPRESSION
+   25           | EXPRESSION . tMINUS EXPRESSION
+   25           | EXPRESSION tMINUS EXPRESSION .
+
+    tSLASH  shift, and go to state 46
+    tSTAR   shift, and go to state 47
+
+    $default  reduce using rule 25 (EXPRESSION)
+
+
+state 59
+
+   20 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN .
+
+    $default  reduce using rule 20 (AFFICHAGE)
+
+
+state 60
+
+   13 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN .
+
+    $default  reduce using rule 13 (DECLARATION)

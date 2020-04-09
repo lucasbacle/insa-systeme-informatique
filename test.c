@@ -5,6 +5,7 @@ main()
     j=4 ;
     k=8 ;
     printf (i) ;
-    r=(i+j)*(i+k/j) ;
+    r=(i*j)+(k/2) ;
+    r=2;
     printf ( r ) ;
 }

@@ -3,6 +3,13 @@
 int length = 0;
 int n_tmp = 0;
 
+int is_tmp(int addr) {
+    return addr >= MAX_SYMBOLS-n_tmp;
+}
+
+void pop_tmp() {
+    n_tmp = 0;
+}
 int create_symbol(const char *name, type_t type, qualifier_t qualifier)
 {
     if (strcmp(name, "") == 0)
@@ -12,7 +19,7 @@ int create_symbol(const char *name, type_t type, qualifier_t qualifier)
     }
 
     SYMBOL *symbol = NULL;
-    if (length < MAX_SYMBOLS)
+    if (length < MAX_SYMBOLS - n_tmp)
     {
 
         if (get_symbol_by_name(name) == -1)
@@ -42,7 +49,8 @@ int create_tmp_symbol()
 
         symbol = malloc(sizeof(SYMBOL));
         char str[7];
-        symbol->name = sprintf(str, "tmp%d", n_tmp);
+        sprintf(str, "tmp%d", n_tmp);
+        symbol->name = str;
         symbol->type = Integer;
         symbol->qualifier = Const;
         symbol->isInitialized = 1;
