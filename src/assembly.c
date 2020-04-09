@@ -3,12 +3,13 @@ LISTE * listeInstructions=NULL;
 int insert(char * instruction){
     printf("Insertion ########### %s \n",instruction);
     LISTE *aux= listeInstructions;
-    LISTE *new = malloc(sizeof(LISTE));
+    LISTE *new = (LISTE *)malloc(sizeof(LISTE));
     new->instruction=strdup(instruction);
     new->next=NULL;
     compteur++;
-    if(aux)
+    if(aux!=NULL)
     {
+        printf("IF-----\n");
         while(aux->next!=NULL)
         {
             aux=aux->next;
@@ -17,8 +18,10 @@ int insert(char * instruction){
     }
     else
     {
-        aux=new;
+        printf("ELSE-----\n");
+        listeInstructions=new;
     }
+    display();
     return compteur-1;
 }
 int getNumberLine(){
@@ -41,12 +44,21 @@ void patch(int from, int to){
         }
 
 }
-void writeFile(char * fileName){
-    int index=1;
+void display(){
+    int index=0;
     LISTE *aux= listeInstructions;
-    int file = fopen(fileName,'w');
+    printf("DISPLAY @@@@@@@@@@@\n");
     while(aux!=NULL){
-        fprintf(file, "L%d : %s",index,aux->instruction);
+        printf("L%d : %s",++index,aux->instruction);
+        aux=aux->next;
+    }
+}
+void writeFile(char * fileName){
+    int index=0;
+    LISTE *aux= listeInstructions;
+    int file = fopen(fileName,"w");
+    while(aux!=NULL){
+        fprintf(file, "L%d : %s",++index,aux->instruction);
         aux=aux->next;
     }
     fclose(fileName);
