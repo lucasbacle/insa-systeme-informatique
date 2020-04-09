@@ -10,5 +10,5 @@ typedef struct listeInstruction{
     char * instruction;
     struct listeInstruction * next;
 } LISTE;
-LISTE * listeInstructions=NULL;
+
 

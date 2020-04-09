@@ -1,15 +1,24 @@
 #include "assembly.h"
-
+LISTE * listeInstructions=NULL;
 int insert(char * instruction){
+    printf("Insertion ########### %s \n",instruction);
     LISTE *aux= listeInstructions;
     LISTE *new = malloc(sizeof(LISTE));
-    new->instruction=instruction;
+    new->instruction=strdup(instruction);
     new->next=NULL;
     compteur++;
-    while(aux->next!=NULL){
-        aux=aux->next;
+    if(aux)
+    {
+        while(aux->next!=NULL)
+        {
+            aux=aux->next;
+        }
+        aux->next=new;
     }
-    aux->next=new;
+    else
+    {
+        aux=new;
+    }
     return compteur-1;
 }
 int getNumberLine(){

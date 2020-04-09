@@ -2,6 +2,7 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include "symbols.h"
+	#include "assembly.h"
 
 	extern FILE *yyin;
 	extern FILE *yyout;
@@ -39,7 +40,7 @@ DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN;
 
-LIST_IDENTIFIER: tIDENTIFIER{$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER {create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
+LIST_IDENTIFIER: tIDENTIFIER{$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER {$$=create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
 
 AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN 
 {

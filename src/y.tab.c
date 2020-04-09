@@ -117,6 +117,7 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include "symbols.h"
+	#include "assembly.h"
 
 	extern FILE *yyin;
 	extern FILE *yyout;
@@ -143,10 +144,10 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 11 "src/source_v2.y"
+#line 12 "src/source_v2.y"
 {int nb; char * var;}
 /* Line 193 of yacc.c.  */
-#line 150 "src/y.tab.c"
+#line 151 "src/y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -159,7 +160,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 163 "src/y.tab.c"
+#line 164 "src/y.tab.c"
 
 #ifdef short
 # undef short
@@ -453,9 +454,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    27,    27,    28,    28,    30,    31,    31,    32,    32,
-      33,    33,    35,    36,    38,    39,    40,    42,    42,    42,
-      44,    56,    63,    68,    76,    84,    92,   100,   102,   107
+       0,    28,    28,    29,    29,    31,    32,    32,    33,    33,
+      34,    34,    36,    37,    39,    40,    41,    43,    43,    43,
+      45,    57,    64,    69,    77,    85,    93,   101,   103,   108
 };
 #endif
 
@@ -1396,47 +1397,47 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 27 "src/source_v2.y"
+#line 28 "src/source_v2.y"
     {printf("S\n");}
     break;
 
   case 5:
-#line 30 "src/source_v2.y"
+#line 31 "src/source_v2.y"
     {printf("BODY\n");}
     break;
 
   case 9:
-#line 32 "src/source_v2.y"
+#line 33 "src/source_v2.y"
     {printf("LISTE_INSTRUCTIONS\n");}
     break;
 
   case 11:
-#line 33 "src/source_v2.y"
+#line 34 "src/source_v2.y"
     {printf("INSTRUCTION\n");}
     break;
 
   case 12:
-#line 35 "src/source_v2.y"
+#line 36 "src/source_v2.y"
     {(yyval.nb)=Integer;}
     break;
 
   case 13:
-#line 36 "src/source_v2.y"
+#line 37 "src/source_v2.y"
     {(yyval.nb)=Const;}
     break;
 
   case 17:
-#line 42 "src/source_v2.y"
+#line 43 "src/source_v2.y"
     {(yyval.nb)=create_symbol((yyvsp[(1) - (1)].var), Integer, Nothing);}
     break;
 
   case 18:
-#line 42 "src/source_v2.y"
-    {create_symbol((yyvsp[(1) - (1)].var), Integer, Nothing);}
+#line 43 "src/source_v2.y"
+    {(yyval.nb)=create_symbol((yyvsp[(1) - (1)].var), Integer, Nothing);}
     break;
 
   case 20:
-#line 45 "src/source_v2.y"
+#line 46 "src/source_v2.y"
     {
 	char * str;
 	sprintf(str, "AFC %d %d\n",get_symbol_by_name((yyvsp[(1) - (4)].var)),(yyvsp[(3) - (4)].nb));
@@ -1449,7 +1450,7 @@ yyreduce:
     break;
 
   case 21:
-#line 57 "src/source_v2.y"
+#line 58 "src/source_v2.y"
     {
 	char * str;
 	sprintf(str, "PRI %d\n",get_symbol_by_name((yyvsp[(3) - (5)].var)));
@@ -1458,7 +1459,7 @@ yyreduce:
     break;
 
   case 22:
-#line 64 "src/source_v2.y"
+#line 65 "src/source_v2.y"
     {
 			printf("resultat inter : %d\n",(yyvsp[(2) - (3)].nb));
 				(yyval.nb)=(yyvsp[(2) - (3)].nb);
@@ -1466,7 +1467,7 @@ yyreduce:
     break;
 
   case 23:
-#line 69 "src/source_v2.y"
+#line 70 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
 			char * str;
@@ -1477,7 +1478,7 @@ yyreduce:
     break;
 
   case 24:
-#line 77 "src/source_v2.y"
+#line 78 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
 			char * str;
@@ -1488,7 +1489,7 @@ yyreduce:
     break;
 
   case 25:
-#line 85 "src/source_v2.y"
+#line 86 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
 			char * str;
@@ -1499,7 +1500,7 @@ yyreduce:
     break;
 
   case 26:
-#line 93 "src/source_v2.y"
+#line 94 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
 			char * str;
@@ -1510,12 +1511,12 @@ yyreduce:
     break;
 
   case 27:
-#line 101 "src/source_v2.y"
+#line 102 "src/source_v2.y"
     {(yyval.nb)=get_symbol_by_name((yyvsp[(1) - (1)].var));}
     break;
 
   case 28:
-#line 103 "src/source_v2.y"
+#line 104 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
 			(yyval.nb)=tmp;
@@ -1523,7 +1524,7 @@ yyreduce:
     break;
 
   case 29:
-#line 108 "src/source_v2.y"
+#line 109 "src/source_v2.y"
     {
 			int tmp=create_tmp_symbol();
 			(yyval.nb)=tmp;
@@ -1532,7 +1533,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1536 "src/y.tab.c"
+#line 1537 "src/y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1746,7 +1747,7 @@ yyreturn:
 }
 
 
-#line 113 "src/source_v2.y"
+#line 114 "src/source_v2.y"
 
 
 int main(int argc, char *argv[]) {
