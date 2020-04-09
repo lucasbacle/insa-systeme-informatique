@@ -40,13 +40,14 @@ DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN;
 
-LIST_IDENTIFIER: tIDENTIFIER{$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER {$$=create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
+LIST_IDENTIFIER: tIDENTIFIER{$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER {create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
 
 AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN 
 {
-	char * str;
+	char * str = malloc(sizeof(char)*100);
 	sprintf(str, "AFC %d %d\n",get_symbol_by_name($1),$3);
 	insert(str);
+	free(str);
 	if(is_tmp($3))
 	{
 		pop_tmp();
@@ -56,46 +57,51 @@ AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 
 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN 
 {
-	char * str;
+	char * str = malloc(sizeof(char)*100);
 	sprintf(str, "PRI %d\n",get_symbol_by_name($3));
 	insert(str);
+	free(str);
 };
 
 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			printf("resultat inter : %d\n",$2);
-				$$=$2;
+			$$=$2;
 		}
 	|EXPRESSION tSTAR EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			char * str;
+			char * str = malloc(sizeof(char)*100);
 			sprintf(str, "MUL %d %d %d\n", tmp, $1, $3);
 			insert(str);
+			free(str);
 			$$=tmp;
 		}
 	|EXPRESSION tSLASH EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			char * str;
+			char * str = malloc(sizeof(char)*100);
 			sprintf(str, "DIV %d %d %d\n", tmp, $1, $3);
-			insert(str); 
+			insert(str);
+			free(str); 
 			$$=tmp;
 		}
 	|EXPRESSION tPLUS EXPRESSION
 		{
 			int tmp=create_tmp_symbol();
-			char * str;
+			char * str = malloc(sizeof(char)*100);
 			sprintf(str, "ADD %d %d %d\n", tmp, $1, $3);
 			insert(str);
+			free(str);
 			$$=tmp;
 		}
 	|EXPRESSION tMINUS EXPRESSION 
 		{
 			int tmp=create_tmp_symbol();
-			char * str;
+			char * str = malloc(sizeof(char)*100);
 			sprintf(str, "SOU %d %d %d\n", tmp, $1, $3);
 			insert(str);
+			free(str);
 			$$=tmp;
 		}
 	|tIDENTIFIER

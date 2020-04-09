@@ -55,11 +55,14 @@ void display(){
 }
 void writeFile(char * fileName){
     int index=0;
-    LISTE *aux= listeInstructions;
-    int file = fopen(fileName,"w");
+    LISTE *aux = listeInstructions;
+    printf("WRITE FILE @@@@@@@@@@@\n");
+    FILE * file = fopen(fileName,"w");
+
     while(aux!=NULL){
-        fprintf(file, "L%d : %s",++index,aux->instruction);
+        fprintf(file, "L%d : %s", ++index, aux->instruction);
         aux=aux->next;
     }
-    fclose(fileName);
+
+    fclose(file);
 }

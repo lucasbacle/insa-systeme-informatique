@@ -15,7 +15,7 @@ int create_symbol(const char *name, type_t type, qualifier_t qualifier)
     if (strcmp(name, "") == 0)
     {
         yyerror("Empty variable name forbidden");
-        return NULL;
+        return -1;
     }
 
     SYMBOL *symbol = NULL;
