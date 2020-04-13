@@ -19,8 +19,11 @@
 \( return tOPENED_PARENTHESIS;
 \> return tSUP;
 \< return tINF;
+
 if return tIF;
 else return tELSE;
+
+while return tWHILE;
 
 void return tVOID;
 const return tCONST;

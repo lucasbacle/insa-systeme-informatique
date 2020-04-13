@@ -13,9 +13,9 @@
 
 %token <nb> tNUMBER
 %token <var> tIDENTIFIER
-%token tCOMMA tSEMI_COLUMN tSLASH tSTAR tPLUS tMINUS tEQUAL tCLOSED_PARENTHESIS tOPENED_PARENTHESIS tVOID tCONST tINT tMAIN tOPENED_C_BRACKET tCLOSED_C_BRACKET tRETURN tPRINTF tSUP tINF tIF tELSE
+%token tCOMMA tSEMI_COLUMN tSLASH tSTAR tPLUS tMINUS tEQUAL tCLOSED_PARENTHESIS tOPENED_PARENTHESIS tVOID tCONST tINT tMAIN tOPENED_C_BRACKET tCLOSED_C_BRACKET tRETURN tPRINTF tSUP tINF tIF tELSE tWHILE
 
-%type <nb> EXPRESSION TYPE TYPE_OPTION LIST_IDENTIFIER tIF
+%type <nb> EXPRESSION TYPE TYPE_OPTION LIST_IDENTIFIER CONDITION_IF tWHILE tOPENED_PARENTHESIS
 
 %right tEQUAL
 %left tPLUS tMINUS
@@ -31,30 +31,56 @@ RETURN_TYPE: TYPE | ;
 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET {printf("BODY\n");};
 LISTE_DECLARATIONS: DECLARATION LISTE_DECLARATIONS | ;
 LISTE_INSTRUCTIONS: INSTRUCTION LISTE_INSTRUCTIONS | {printf("LISTE_INSTRUCTIONS\n");};
-INSTRUCTION: AFFECTATION|CONDITION|AFFICHAGE {printf("INSTRUCTION\n");};
+INSTRUCTION: AFFECTATION|WHILE|CONDITION|AFFICHAGE {printf("INSTRUCTION\n");};
 
 TYPE: tINT {$$=Integer;};
 TYPE_OPTION: tCONST{$$=Const;};
 
-CONDITION: tIF tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
+CONDITION_IF: tIF tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 	{	
-		printf("IF ################\n");
-		char * str = malloc(sizeof(char)*100);
-		sprintf(str, "JMPF %d\n",$3);
+		char * str = malloc(sizeof(char)*15);
+		sprintf(str, "JMPF %d",$3);
+		int ligne = insert(str) ;
+		free(str);
+		$$ = ligne ;	
+	};
+
+CONDITION: CONDITION_IF	BODY
+	{	
+		int current = getNumberLine();
+		patch($1, current + 2);
+		int ligne = insert("JMP");
+		$1 = ligne;
+	} 
+	tELSE BODY
+	{	
+		int current = getNumberLine(); 
+		patch($1, current + 1);
+	}
+	| CONDITION_IF BODY
+	{	
+		int current = getNumberLine(); 
+		patch($1, current + 1);
+	};
+
+WHILE: tWHILE tOPENED_PARENTHESIS EXPRESSION {$2 = getNumberLine();} tCLOSED_PARENTHESIS
+	{	
+		char * str = malloc(sizeof(char)*15);
+		sprintf(str, "JMF %d",$3);
 		int ligne = insert(str) ;
 		free(str);
 		$1 = ligne ;	
 	}
-
- BODY
+ 	BODY
 	{	
-		int current = getNumberLine() ; 
-		patch($1, current + 1) ;
-	}
-	|tIF tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS BODY tELSE BODY
-		{
-			printf("IF ELSE\n");
-		};
+		int current = getNumberLine();
+		patch($1, current + 2);
+
+		char * str = malloc(sizeof(char)*15);
+		sprintf(str, "JMP %d", $2);
+		insert(str);
+		free(str);
+	};
 
 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tSEMI_COLUMN
