@@ -154,7 +154,7 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 	{
 		int tmp=create_tmp_symbol();
 		char * str = malloc(sizeof(char)*100);
-		sprintf(str, "EQ %d %d %d\n", tmp, $1, $4);
+		sprintf(str, "EQU %d %d %d\n", tmp, $1, $4);
 		insert(str);
 		free(str);
 		$$=tmp;

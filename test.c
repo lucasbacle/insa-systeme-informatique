@@ -1,9 +1,20 @@
 main()
 {
-    int i;
-    i=1;
+    int i, j;
+    i = 1;
+    j = 20;
 
-    while (i==1) {
-        printf(i);
+    while (i < 10)
+    {
+        if (i == 1)
+        {
+            printf(i);
+        }
+        else
+        {
+            printf(j);
+        }
+
+        i = i + 1;
     }
 }
