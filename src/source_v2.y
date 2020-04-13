@@ -6,16 +6,16 @@
 
 	extern FILE *yyin;
 	extern FILE *yyout;
-	int yydebug = 0;
+	int yydebug = 1;
 %}
 
 %union {int nb; char * var;}
 
 %token <nb> tNUMBER
 %token <var> tIDENTIFIER
-%token tCOMMA tSEMI_COLUMN tSLASH tSTAR tPLUS tMINUS tEQUAL tCLOSED_PARENTHESIS tOPENED_PARENTHESIS tVOID tCONST tINT tMAIN tOPENED_C_BRACKET tCLOSED_C_BRACKET tRETURN tPRINTF
+%token tCOMMA tSEMI_COLUMN tSLASH tSTAR tPLUS tMINUS tEQUAL tCLOSED_PARENTHESIS tOPENED_PARENTHESIS tVOID tCONST tINT tMAIN tOPENED_C_BRACKET tCLOSED_C_BRACKET tRETURN tPRINTF tSUP tINF tIF tELSE
 
-%type <nb> EXPRESSION TYPE TYPE_OPTION LIST_IDENTIFIER
+%type <nb> EXPRESSION TYPE TYPE_OPTION LIST_IDENTIFIER tIF
 
 %right tEQUAL
 %left tPLUS tMINUS
@@ -31,10 +31,30 @@ RETURN_TYPE: TYPE | ;
 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET {printf("BODY\n");};
 LISTE_DECLARATIONS: DECLARATION LISTE_DECLARATIONS | ;
 LISTE_INSTRUCTIONS: INSTRUCTION LISTE_INSTRUCTIONS | {printf("LISTE_INSTRUCTIONS\n");};
-INSTRUCTION: AFFECTATION|AFFICHAGE {printf("INSTRUCTION\n");};
+INSTRUCTION: AFFECTATION|CONDITION|AFFICHAGE {printf("INSTRUCTION\n");};
 
 TYPE: tINT {$$=Integer;};
 TYPE_OPTION: tCONST{$$=Const;};
+
+CONDITION: tIF tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
+	{	
+		printf("IF ################\n");
+		char * str = malloc(sizeof(char)*100);
+		sprintf(str, "JMPF %d\n",$3);
+		int ligne = insert(str) ;
+		free(str);
+		$1 = ligne ;	
+	}
+
+ BODY
+	{	
+		int current = getNumberLine() ; 
+		patch($1, current + 1) ;
+	}
+	|tIF tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS BODY tELSE BODY
+		{
+			printf("IF ELSE\n");
+		};
 
 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 	|TYPE LIST_IDENTIFIER tSEMI_COLUMN
@@ -104,6 +124,33 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 			free(str);
 			$$=tmp;
 		}
+	|EXPRESSION tEQUAL tEQUAL EXPRESSION
+	{
+		int tmp=create_tmp_symbol();
+		char * str = malloc(sizeof(char)*100);
+		sprintf(str, "EQ %d %d %d\n", tmp, $1, $4);
+		insert(str);
+		free(str);
+		$$=tmp;
+	}
+	|EXPRESSION tSUP EXPRESSION
+	{
+		int tmp=create_tmp_symbol();
+		char * str = malloc(sizeof(char)*100);
+		sprintf(str, "SUP %d %d %d\n", tmp, $1, $3);
+		insert(str);
+		free(str);
+		$$=tmp;
+	}
+	|EXPRESSION tINF EXPRESSION
+	{
+		int tmp=create_tmp_symbol();
+		char * str = malloc(sizeof(char)*100);
+		sprintf(str, "INF %d %d %d\n", tmp, $1, $3);
+		insert(str);
+		free(str);
+		$$=tmp;
+	}
 	|tIDENTIFIER
 		{$$=get_symbol_by_name($1);}
 	|tMINUS EXPRESSION %prec tSTAR

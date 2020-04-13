@@ -17,6 +17,10 @@
 \= return tEQUAL;
 \) return tCLOSED_PARENTHESIS;
 \( return tOPENED_PARENTHESIS;
+\> return tSUP;
+\< return tINF;
+if return tIF;
+else return tELSE;
 
 void return tVOID;
 const return tCONST;

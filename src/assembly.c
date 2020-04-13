@@ -9,7 +9,6 @@ int insert(char * instruction){
     compteur++;
     if(aux!=NULL)
     {
-        printf("IF-----\n");
         while(aux->next!=NULL)
         {
             aux=aux->next;
@@ -18,7 +17,6 @@ int insert(char * instruction){
     }
     else
     {
-        printf("ELSE-----\n");
         listeInstructions=new;
     }
     display();
