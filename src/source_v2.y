@@ -65,10 +65,10 @@ CONDITION: CONDITION_IF	BODY
 		// pop_tmp
 	};
 
-WHILE: tWHILE tOPENED_PARENTHESIS {$1 = getNumberLine();} EXPRESSION tCLOSED_PARENTHESIS
+WHILE: tWHILE tOPENED_PARENTHESIS {$1 = getNumberLine()+1;} EXPRESSION tCLOSED_PARENTHESIS
 	{	
 		char * str = malloc(sizeof(char)*15);
-		sprintf(str, "JMF %d",$3);
+		sprintf(str, "JMF %d",$4);
 		int ligne = insert(str) ;
 		free(str);
 		$2 = ligne ;	
