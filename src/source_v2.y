@@ -88,10 +88,18 @@ DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 
 LIST_IDENTIFIER: tIDENTIFIER{$$=create_symbol($1, Integer, Nothing);}| tIDENTIFIER {create_symbol($1, Integer, Nothing);} tCOMMA LIST_IDENTIFIER;
 
-AFFECTATION: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN 
+AFFECTATION: tIDENTIFIER tEQUAL tNUMBER tSEMI_COLUMN 
 {
 	char * str = malloc(sizeof(char)*100);
 	sprintf(str, "AFC %d %d\n",get_symbol_by_name($1),$3);
+	insert(str);
+	free(str);
+};
+
+COP: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN 
+{
+	char * str = malloc(sizeof(char)*100);
+	sprintf(str, "COP %d %d\n",get_symbol_by_name($1),$3);
 	insert(str);
 	free(str);
 	if(is_tmp($3))
