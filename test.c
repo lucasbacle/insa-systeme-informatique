@@ -1,11 +1,16 @@
 main()
 {
     int i, j;
-    i = 1;
+    i = 0;
     j = 0;
 
-    while(i == j*2)
-    {
-        i = i + 1;
+    while(i<4) {
+        if (j == i*2) {
+            i = i + 2;
+        } else {
+            i = i + 1;
+        }
     }
+
+    printf(i);
 }

@@ -487,9 +487,9 @@ static const yytype_uint8 yyrline[] =
 {
        0,    28,    28,    29,    29,    31,    32,    32,    33,    33,
       34,    34,    34,    34,    34,    36,    37,    39,    49,    48,
-      61,    68,    69,    68,    87,    88,    89,    91,    91,    91,
-      93,   101,   113,   121,   126,   135,   144,   153,   162,   171,
-     180,   189,   191,   196
+      60,    66,    67,    66,    85,    86,    87,    89,    89,    89,
+      91,    99,   111,   119,   124,   133,   142,   151,   160,   169,
+     178,   187,   189,   194
 };
 #endif
 
@@ -1331,7 +1331,7 @@ yyreduce:
 
   case 5:
 #line 31 "src/source_v2.y" /* yacc.c:1646  */
-    {printf("BODY\n");}
+    {pop_tmp(); printf("BODY\n");}
 #line 1336 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1363,7 +1363,7 @@ yyreduce:
 #line 40 "src/source_v2.y" /* yacc.c:1646  */
     {	
 		char * str = malloc(sizeof(char)*15);
-		sprintf(str, "JMPF %d",(yyvsp[-1].nb));
+		sprintf(str, "JMF %d",(yyvsp[-1].nb));
 		int ligne = insert(str) ;
 		free(str);
 		(yyval.nb) = ligne ;	
@@ -1387,29 +1387,27 @@ yyreduce:
     {	
 		int current = getNumberLine(); 
 		patch((yyvsp[-4].nb), current + 1);
-		// pop_tmp
 	}
-#line 1393 "src/y.tab.c" /* yacc.c:1646  */
+#line 1392 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 62 "src/source_v2.y" /* yacc.c:1646  */
+#line 61 "src/source_v2.y" /* yacc.c:1646  */
     {	
 		int current = getNumberLine(); 
 		patch((yyvsp[-1].nb), current + 1);
-		// pop_tmp
 	}
-#line 1403 "src/y.tab.c" /* yacc.c:1646  */
+#line 1401 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 68 "src/source_v2.y" /* yacc.c:1646  */
+#line 66 "src/source_v2.y" /* yacc.c:1646  */
     {(yyvsp[-1].nb) = getNumberLine()+1;}
-#line 1409 "src/y.tab.c" /* yacc.c:1646  */
+#line 1407 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 69 "src/source_v2.y" /* yacc.c:1646  */
+#line 67 "src/source_v2.y" /* yacc.c:1646  */
     {	
 		char * str = malloc(sizeof(char)*15);
 		sprintf(str, "JMF %d",(yyvsp[-1].nb));
@@ -1417,11 +1415,11 @@ yyreduce:
 		free(str);
 		(yyvsp[-3].nb) = ligne ;	
 	}
-#line 1421 "src/y.tab.c" /* yacc.c:1646  */
+#line 1419 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 77 "src/source_v2.y" /* yacc.c:1646  */
+#line 75 "src/source_v2.y" /* yacc.c:1646  */
     {	
 		int current = getNumberLine();
 		patch((yyvsp[-5].nb), current + 2);
@@ -1431,37 +1429,37 @@ yyreduce:
 		insert(str);
 		free(str);
 	}
-#line 1435 "src/y.tab.c" /* yacc.c:1646  */
+#line 1433 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 91 "src/source_v2.y" /* yacc.c:1646  */
+#line 89 "src/source_v2.y" /* yacc.c:1646  */
     {(yyval.nb)=create_symbol((yyvsp[0].var), Integer, Nothing);}
-#line 1441 "src/y.tab.c" /* yacc.c:1646  */
+#line 1439 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 91 "src/source_v2.y" /* yacc.c:1646  */
+#line 89 "src/source_v2.y" /* yacc.c:1646  */
     {create_symbol((yyvsp[0].var), Integer, Nothing);}
-#line 1447 "src/y.tab.c" /* yacc.c:1646  */
+#line 1445 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 94 "src/source_v2.y" /* yacc.c:1646  */
+#line 92 "src/source_v2.y" /* yacc.c:1646  */
     {
 	char * str = malloc(sizeof(char)*100);
-	sprintf(str, "AFC %d %d\n",get_symbol_by_name((yyvsp[-3].var)),(yyvsp[-1].nb));
+	sprintf(str, "AFC %d %d",get_symbol_by_name((yyvsp[-3].var)),(yyvsp[-1].nb));
 	insert(str);
 	free(str);
 }
-#line 1458 "src/y.tab.c" /* yacc.c:1646  */
+#line 1456 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 102 "src/source_v2.y" /* yacc.c:1646  */
+#line 100 "src/source_v2.y" /* yacc.c:1646  */
     {
 	char * str = malloc(sizeof(char)*100);
-	sprintf(str, "COP %d %d\n",get_symbol_by_name((yyvsp[-3].var)),(yyvsp[-1].nb));
+	sprintf(str, "COP %d %d",get_symbol_by_name((yyvsp[-3].var)),(yyvsp[-1].nb));
 	insert(str);
 	free(str);
 	if(is_tmp((yyvsp[-1].nb)))
@@ -1469,146 +1467,150 @@ yyreduce:
 		pop_tmp();
 	}
 }
-#line 1473 "src/y.tab.c" /* yacc.c:1646  */
+#line 1471 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 114 "src/source_v2.y" /* yacc.c:1646  */
+#line 112 "src/source_v2.y" /* yacc.c:1646  */
     {
 	char * str = malloc(sizeof(char)*100);
-	sprintf(str, "PRI %d\n",get_symbol_by_name((yyvsp[-2].var)));
+	sprintf(str, "PRI %d",get_symbol_by_name((yyvsp[-2].var)));
 	insert(str);
 	free(str);
 }
-#line 1484 "src/y.tab.c" /* yacc.c:1646  */
+#line 1482 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 122 "src/source_v2.y" /* yacc.c:1646  */
+#line 120 "src/source_v2.y" /* yacc.c:1646  */
     {
 			printf("resultat inter : %d\n",(yyvsp[-1].nb));
 			(yyval.nb)=(yyvsp[-1].nb);
 		}
-#line 1493 "src/y.tab.c" /* yacc.c:1646  */
+#line 1491 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 127 "src/source_v2.y" /* yacc.c:1646  */
+#line 125 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "MUL %d %d %d\n", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
+			sprintf(str, "MUL %d %d %d", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
 			insert(str);
 			free(str);
 			(yyval.nb)=tmp;
 		}
-#line 1506 "src/y.tab.c" /* yacc.c:1646  */
+#line 1504 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 136 "src/source_v2.y" /* yacc.c:1646  */
+#line 134 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "DIV %d %d %d\n", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
+			sprintf(str, "DIV %d %d %d", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
 			insert(str);
 			free(str); 
 			(yyval.nb)=tmp;
 		}
-#line 1519 "src/y.tab.c" /* yacc.c:1646  */
+#line 1517 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 145 "src/source_v2.y" /* yacc.c:1646  */
+#line 143 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "ADD %d %d %d\n", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
+			sprintf(str, "ADD %d %d %d", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
 			insert(str);
 			free(str);
 			(yyval.nb)=tmp;
 		}
-#line 1532 "src/y.tab.c" /* yacc.c:1646  */
+#line 1530 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 154 "src/source_v2.y" /* yacc.c:1646  */
+#line 152 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "SOU %d %d %d\n", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
+			sprintf(str, "SOU %d %d %d", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
 			insert(str);
 			free(str);
 			(yyval.nb)=tmp;
 		}
-#line 1545 "src/y.tab.c" /* yacc.c:1646  */
+#line 1543 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 163 "src/source_v2.y" /* yacc.c:1646  */
+#line 161 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "EQU %d %d %d\n", tmp, (yyvsp[-3].nb), (yyvsp[0].nb));
+			sprintf(str, "EQU %d %d %d", tmp, (yyvsp[-3].nb), (yyvsp[0].nb));
 			insert(str);
 			free(str);
 			(yyval.nb)=tmp;
 		}
-#line 1558 "src/y.tab.c" /* yacc.c:1646  */
+#line 1556 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 172 "src/source_v2.y" /* yacc.c:1646  */
+#line 170 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "SUP %d %d %d\n", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
+			sprintf(str, "SUP %d %d %d", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
 			insert(str);
 			free(str);
 			(yyval.nb)=tmp;
 		}
-#line 1571 "src/y.tab.c" /* yacc.c:1646  */
+#line 1569 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 181 "src/source_v2.y" /* yacc.c:1646  */
+#line 179 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "INF %d %d %d\n", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
+			sprintf(str, "INF %d %d %d", tmp, (yyvsp[-2].nb), (yyvsp[0].nb));
 			insert(str);
 			free(str);
 			(yyval.nb)=tmp;
 		}
-#line 1584 "src/y.tab.c" /* yacc.c:1646  */
+#line 1582 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 190 "src/source_v2.y" /* yacc.c:1646  */
+#line 188 "src/source_v2.y" /* yacc.c:1646  */
     {(yyval.nb)=get_symbol_by_name((yyvsp[0].var));}
-#line 1590 "src/y.tab.c" /* yacc.c:1646  */
+#line 1588 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 192 "src/source_v2.y" /* yacc.c:1646  */
+#line 190 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
 			(yyval.nb)=tmp;
 		}
-#line 1599 "src/y.tab.c" /* yacc.c:1646  */
+#line 1597 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 197 "src/source_v2.y" /* yacc.c:1646  */
+#line 195 "src/source_v2.y" /* yacc.c:1646  */
     {
 			int tmp=create_tmp_symbol();
+			char * str = malloc(sizeof(char)*100);
+			sprintf(str, "AFC %d %d", tmp, (yyvsp[0].nb)); // TODO: check if it is needed
+			insert(str);
+			free(str);
 			(yyval.nb)=tmp;
 		}
-#line 1608 "src/y.tab.c" /* yacc.c:1646  */
+#line 1610 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1612 "src/y.tab.c" /* yacc.c:1646  */
+#line 1614 "src/y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1836,7 +1838,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 203 "src/source_v2.y" /* yacc.c:1906  */
+#line 205 "src/source_v2.y" /* yacc.c:1906  */
 
 
 int main(int argc, char *argv[]) {

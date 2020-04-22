@@ -43,7 +43,7 @@ void patch(int from, int to)
     {
         char *debut = strdup(aux->instruction);
         char *add = malloc(sizeof(char)*15);
-        sprintf(add, " %d\n", to);
+        sprintf(add, " %d", to);
         strcat(debut, add);
         aux->instruction = debut;
         free(add);
@@ -58,20 +58,19 @@ void display()
     printf("DISPLAY @@@@@@@@@@@\n");
     while (aux != NULL)
     {
-        printf("L%d : %s", index++, aux->instruction);
+        printf("L%d : %s\n", index++, aux->instruction);
         aux = aux->next;
     }
 }
 void writeFile(char *fileName)
 {
-    int index = 0;
     LISTE *aux = listeInstructions;
-    printf("WRITE FILE @@@@@@@@@@@\n");
+    printf("WRITE FILE\n");
     FILE *file = fopen(fileName, "w");
 
     while (aux != NULL)
     {
-        fprintf(file, "L%d : %s", index++, aux->instruction);
+        fprintf(file, "%s\n", aux->instruction);
         aux = aux->next;
     }
 

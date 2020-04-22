@@ -28,7 +28,7 @@
 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY {printf("S\n");};
 RETURN_TYPE: TYPE | ;
 
-BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET {printf("BODY\n");};
+BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET {pop_tmp(); printf("BODY\n");};
 LISTE_DECLARATIONS: DECLARATION LISTE_DECLARATIONS | ;
 LISTE_INSTRUCTIONS: INSTRUCTION LISTE_INSTRUCTIONS | {printf("LISTE_INSTRUCTIONS\n");};
 INSTRUCTION: AFFECTATION|COP|WHILE|CONDITION|AFFICHAGE {printf("INSTRUCTION\n");};
@@ -39,7 +39,7 @@ TYPE_OPTION: tCONST{$$=Const;};
 CONDITION_IF: tIF tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 	{	
 		char * str = malloc(sizeof(char)*15);
-		sprintf(str, "JMPF %d",$3);
+		sprintf(str, "JMF %d",$3);
 		int ligne = insert(str) ;
 		free(str);
 		$$ = ligne ;	
@@ -56,13 +56,11 @@ CONDITION: CONDITION_IF	BODY
 	{	
 		int current = getNumberLine(); 
 		patch($1, current + 1);
-		// pop_tmp
 	}
 	| CONDITION_IF BODY
 	{	
 		int current = getNumberLine(); 
 		patch($1, current + 1);
-		// pop_tmp
 	};
 
 WHILE: tWHILE tOPENED_PARENTHESIS {$1 = getNumberLine()+1;} EXPRESSION tCLOSED_PARENTHESIS
@@ -93,7 +91,7 @@ LIST_IDENTIFIER: tIDENTIFIER{$$=create_symbol($1, Integer, Nothing);}| tIDENTIFI
 AFFECTATION: tIDENTIFIER tEQUAL tNUMBER tSEMI_COLUMN 
 {
 	char * str = malloc(sizeof(char)*100);
-	sprintf(str, "AFC %d %d\n",get_symbol_by_name($1),$3);
+	sprintf(str, "AFC %d %d",get_symbol_by_name($1),$3);
 	insert(str);
 	free(str);
 };
@@ -101,7 +99,7 @@ AFFECTATION: tIDENTIFIER tEQUAL tNUMBER tSEMI_COLUMN
 COP: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN 
 {
 	char * str = malloc(sizeof(char)*100);
-	sprintf(str, "COP %d %d\n",get_symbol_by_name($1),$3);
+	sprintf(str, "COP %d %d",get_symbol_by_name($1),$3);
 	insert(str);
 	free(str);
 	if(is_tmp($3))
@@ -113,7 +111,7 @@ COP: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN 
 {
 	char * str = malloc(sizeof(char)*100);
-	sprintf(str, "PRI %d\n",get_symbol_by_name($3));
+	sprintf(str, "PRI %d",get_symbol_by_name($3));
 	insert(str);
 	free(str);
 };
@@ -127,7 +125,7 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "MUL %d %d %d\n", tmp, $1, $3);
+			sprintf(str, "MUL %d %d %d", tmp, $1, $3);
 			insert(str);
 			free(str);
 			$$=tmp;
@@ -136,7 +134,7 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "DIV %d %d %d\n", tmp, $1, $3);
+			sprintf(str, "DIV %d %d %d", tmp, $1, $3);
 			insert(str);
 			free(str); 
 			$$=tmp;
@@ -145,7 +143,7 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "ADD %d %d %d\n", tmp, $1, $3);
+			sprintf(str, "ADD %d %d %d", tmp, $1, $3);
 			insert(str);
 			free(str);
 			$$=tmp;
@@ -154,7 +152,7 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "SOU %d %d %d\n", tmp, $1, $3);
+			sprintf(str, "SOU %d %d %d", tmp, $1, $3);
 			insert(str);
 			free(str);
 			$$=tmp;
@@ -163,7 +161,7 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "EQU %d %d %d\n", tmp, $1, $4);
+			sprintf(str, "EQU %d %d %d", tmp, $1, $4);
 			insert(str);
 			free(str);
 			$$=tmp;
@@ -172,7 +170,7 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "SUP %d %d %d\n", tmp, $1, $3);
+			sprintf(str, "SUP %d %d %d", tmp, $1, $3);
 			insert(str);
 			free(str);
 			$$=tmp;
@@ -181,7 +179,7 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			int tmp=create_tmp_symbol();
 			char * str = malloc(sizeof(char)*100);
-			sprintf(str, "INF %d %d %d\n", tmp, $1, $3);
+			sprintf(str, "INF %d %d %d", tmp, $1, $3);
 			insert(str);
 			free(str);
 			$$=tmp;
@@ -196,6 +194,10 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 	|tNUMBER 
 		{
 			int tmp=create_tmp_symbol();
+			char * str = malloc(sizeof(char)*100);
+			sprintf(str, "AFC %d %d", tmp, $1); // TODO: check if it is needed
+			insert(str);
+			free(str);
 			$$=tmp;
 		};	
 	
