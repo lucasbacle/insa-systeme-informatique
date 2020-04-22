@@ -31,7 +31,7 @@ RETURN_TYPE: TYPE | ;
 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET {printf("BODY\n");};
 LISTE_DECLARATIONS: DECLARATION LISTE_DECLARATIONS | ;
 LISTE_INSTRUCTIONS: INSTRUCTION LISTE_INSTRUCTIONS | {printf("LISTE_INSTRUCTIONS\n");};
-INSTRUCTION: AFFECTATION|WHILE|CONDITION|AFFICHAGE {printf("INSTRUCTION\n");};
+INSTRUCTION: AFFECTATION|COP|WHILE|CONDITION|AFFICHAGE {printf("INSTRUCTION\n");};
 
 TYPE: tINT {$$=Integer;};
 TYPE_OPTION: tCONST{$$=Const;};
@@ -56,28 +56,30 @@ CONDITION: CONDITION_IF	BODY
 	{	
 		int current = getNumberLine(); 
 		patch($1, current + 1);
+		// pop_tmp
 	}
 	| CONDITION_IF BODY
 	{	
 		int current = getNumberLine(); 
 		patch($1, current + 1);
+		// pop_tmp
 	};
 
-WHILE: tWHILE tOPENED_PARENTHESIS EXPRESSION {$2 = getNumberLine();} tCLOSED_PARENTHESIS
+WHILE: tWHILE tOPENED_PARENTHESIS {$1 = getNumberLine();} EXPRESSION tCLOSED_PARENTHESIS
 	{	
 		char * str = malloc(sizeof(char)*15);
 		sprintf(str, "JMF %d",$3);
 		int ligne = insert(str) ;
 		free(str);
-		$1 = ligne ;	
+		$2 = ligne ;	
 	}
  	BODY
 	{	
 		int current = getNumberLine();
-		patch($1, current + 2);
+		patch($2, current + 2);
 
 		char * str = malloc(sizeof(char)*15);
-		sprintf(str, "JMP %d", $2);
+		sprintf(str, "JMP %d", $1);
 		insert(str);
 		free(str);
 	};
@@ -107,7 +109,6 @@ COP: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 		pop_tmp();
 	}
 };
-// TODO: COP @expr @resultat
 
 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN 
 {
@@ -159,32 +160,32 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 			$$=tmp;
 		}
 	|EXPRESSION tEQUAL tEQUAL EXPRESSION
-	{
-		int tmp=create_tmp_symbol();
-		char * str = malloc(sizeof(char)*100);
-		sprintf(str, "EQU %d %d %d\n", tmp, $1, $4);
-		insert(str);
-		free(str);
-		$$=tmp;
-	}
+		{
+			int tmp=create_tmp_symbol();
+			char * str = malloc(sizeof(char)*100);
+			sprintf(str, "EQU %d %d %d\n", tmp, $1, $4);
+			insert(str);
+			free(str);
+			$$=tmp;
+		}
 	|EXPRESSION tSUP EXPRESSION
-	{
-		int tmp=create_tmp_symbol();
-		char * str = malloc(sizeof(char)*100);
-		sprintf(str, "SUP %d %d %d\n", tmp, $1, $3);
-		insert(str);
-		free(str);
-		$$=tmp;
-	}
+		{
+			int tmp=create_tmp_symbol();
+			char * str = malloc(sizeof(char)*100);
+			sprintf(str, "SUP %d %d %d\n", tmp, $1, $3);
+			insert(str);
+			free(str);
+			$$=tmp;
+		}
 	|EXPRESSION tINF EXPRESSION
-	{
-		int tmp=create_tmp_symbol();
-		char * str = malloc(sizeof(char)*100);
-		sprintf(str, "INF %d %d %d\n", tmp, $1, $3);
-		insert(str);
-		free(str);
-		$$=tmp;
-	}
+		{
+			int tmp=create_tmp_symbol();
+			char * str = malloc(sizeof(char)*100);
+			sprintf(str, "INF %d %d %d\n", tmp, $1, $3);
+			insert(str);
+			free(str);
+			$$=tmp;
+		}
 	|tIDENTIFIER
 		{$$=get_symbol_by_name($1);}
 	|tMINUS EXPRESSION %prec tSTAR
@@ -196,7 +197,8 @@ EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 		{
 			int tmp=create_tmp_symbol();
 			$$=tmp;
-		}	
+		};	
+	
 
 %%
 
