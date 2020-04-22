@@ -12,3 +12,4 @@ $(SRC)lex.yy.c : $(SRC)source.l
 
 clean:
 	rm -r $(SRC)*.o
+	rm -r $(SRC)y.tab.*
