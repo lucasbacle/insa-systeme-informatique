@@ -1,36 +1,36 @@
-Terminaux inutilisés dans la grammaire
+Terminals which are not used
 
    tVOID
    tRETURN
 
 
-État 43 conflits: 1 décalage/réduction
-État 57 conflits: 2 décalage/réduction
-État 75 conflits: 2 décalage/réduction
-État 76 conflits: 2 décalage/réduction
-État 77 conflits: 2 décalage/réduction
-État 78 conflits: 2 décalage/réduction
-État 80 conflits: 7 décalage/réduction
-État 81 conflits: 7 décalage/réduction
-État 86 conflits: 2 décalage/réduction
+State 43 conflicts: 1 shift/reduce
+State 57 conflicts: 2 shift/reduce
+State 75 conflicts: 2 shift/reduce
+State 76 conflicts: 2 shift/reduce
+State 77 conflicts: 2 shift/reduce
+State 78 conflicts: 2 shift/reduce
+State 80 conflicts: 7 shift/reduce
+State 81 conflicts: 7 shift/reduce
+State 86 conflicts: 2 shift/reduce
 
 
-Grammaire
+Grammar
 
     0 $accept: PROGRAM $end
 
     1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
 
     2 RETURN_TYPE: TYPE
-    3            | %empty
+    3            | /* empty */
 
     4 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET
 
     5 LISTE_DECLARATIONS: DECLARATION LISTE_DECLARATIONS
-    6                   | %empty
+    6                   | /* empty */
 
     7 LISTE_INSTRUCTIONS: INSTRUCTION LISTE_INSTRUCTIONS
-    8                   | %empty
+    8                   | /* empty */
 
     9 INSTRUCTION: AFFECTATION
    10            | COP
@@ -44,16 +44,16 @@ Grammaire
 
    16 CONDITION_IF: tIF tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 
-   17 $@1: %empty
+   17 @1: /* empty */
 
-   18 CONDITION: CONDITION_IF BODY $@1 tELSE BODY
+   18 CONDITION: CONDITION_IF BODY @1 tELSE BODY
    19          | CONDITION_IF BODY
 
-   20 $@2: %empty
+   20 @2: /* empty */
 
-   21 $@3: %empty
+   21 @3: /* empty */
 
-   22 WHILE: tWHILE tOPENED_PARENTHESIS $@2 EXPRESSION tCLOSED_PARENTHESIS $@3 BODY
+   22 WHILE: tWHILE tOPENED_PARENTHESIS @2 EXPRESSION tCLOSED_PARENTHESIS @3 BODY
 
    23 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
    24            | TYPE LIST_IDENTIFIER tSEMI_COLUMN
@@ -61,9 +61,9 @@ Grammaire
 
    26 LIST_IDENTIFIER: tIDENTIFIER
 
-   27 $@4: %empty
+   27 @4: /* empty */
 
-   28 LIST_IDENTIFIER: tIDENTIFIER $@4 tCOMMA LIST_IDENTIFIER
+   28 LIST_IDENTIFIER: tIDENTIFIER @4 tCOMMA LIST_IDENTIFIER
 
    29 AFFECTATION: tIDENTIFIER tEQUAL tNUMBER tSEMI_COLUMN
 
@@ -84,7 +84,7 @@ Grammaire
    42           | tNUMBER
 
 
-Terminaux, suivis des règles où ils apparaissent
+Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
@@ -114,490 +114,490 @@ tELSE (280) 18
 tWHILE (281) 22
 
 
-Non-terminaux, suivis des règles où ils apparaissent
+Nonterminals, with rules where they appear
 
 $accept (27)
-    à gauche: 0
+    on left: 0
 PROGRAM (28)
-    à gauche: 1, à droite: 0
+    on left: 1, on right: 0
 RETURN_TYPE (29)
-    à gauche: 2 3, à droite: 1
+    on left: 2 3, on right: 1
 BODY (30)
-    à gauche: 4, à droite: 1 18 19 22
+    on left: 4, on right: 1 18 19 22
 LISTE_DECLARATIONS (31)
-    à gauche: 5 6, à droite: 4 5
+    on left: 5 6, on right: 4 5
 LISTE_INSTRUCTIONS (32)
-    à gauche: 7 8, à droite: 4 7
+    on left: 7 8, on right: 4 7
 INSTRUCTION (33)
-    à gauche: 9 10 11 12 13, à droite: 7
+    on left: 9 10 11 12 13, on right: 7
 TYPE (34)
-    à gauche: 14, à droite: 2 23 24 25
+    on left: 14, on right: 2 23 24 25
 TYPE_OPTION (35)
-    à gauche: 15, à droite: 23
+    on left: 15, on right: 23
 CONDITION_IF (36)
-    à gauche: 16, à droite: 18 19
+    on left: 16, on right: 18 19
 CONDITION (37)
-    à gauche: 18 19, à droite: 12
-$@1 (38)
-    à gauche: 17, à droite: 18
+    on left: 18 19, on right: 12
+@1 (38)
+    on left: 17, on right: 18
 WHILE (39)
-    à gauche: 22, à droite: 11
-$@2 (40)
-    à gauche: 20, à droite: 22
-$@3 (41)
-    à gauche: 21, à droite: 22
+    on left: 22, on right: 11
+@2 (40)
+    on left: 20, on right: 22
+@3 (41)
+    on left: 21, on right: 22
 DECLARATION (42)
-    à gauche: 23 24 25, à droite: 5
+    on left: 23 24 25, on right: 5
 LIST_IDENTIFIER (43)
-    à gauche: 26 28, à droite: 23 24 25 28
-$@4 (44)
-    à gauche: 27, à droite: 28
+    on left: 26 28, on right: 23 24 25 28
+@4 (44)
+    on left: 27, on right: 28
 AFFECTATION (45)
-    à gauche: 29, à droite: 9
+    on left: 29, on right: 9
 COP (46)
-    à gauche: 30, à droite: 10
+    on left: 30, on right: 10
 AFFICHAGE (47)
-    à gauche: 31, à droite: 13
+    on left: 31, on right: 13
 EXPRESSION (48)
-    à gauche: 32 33 34 35 36 37 38 39 40 41 42, à droite: 16 22 23
-    25 30 32 33 34 35 36 37 38 39 41
+    on left: 32 33 34 35 36 37 38 39 40 41 42, on right: 16 22 23 25
+    30 32 33 34 35 36 37 38 39 41
 
 
-État 0
+state 0
 
     0 $accept: . PROGRAM $end
 
-    tINT  décalage et aller à l'état 1
+    tINT  shift, and go to state 1
 
-    $défaut  réduction par utilisation de la règle 3 (RETURN_TYPE)
+    $default  reduce using rule 3 (RETURN_TYPE)
 
-    PROGRAM      aller à l'état 2
-    RETURN_TYPE  aller à l'état 3
-    TYPE         aller à l'état 4
+    PROGRAM      go to state 2
+    RETURN_TYPE  go to state 3
+    TYPE         go to state 4
 
 
-État 1
+state 1
 
    14 TYPE: tINT .
 
-    $défaut  réduction par utilisation de la règle 14 (TYPE)
+    $default  reduce using rule 14 (TYPE)
 
 
-État 2
+state 2
 
     0 $accept: PROGRAM . $end
 
-    $end  décalage et aller à l'état 5
+    $end  shift, and go to state 5
 
 
-État 3
+state 3
 
     1 PROGRAM: RETURN_TYPE . tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
 
-    tMAIN  décalage et aller à l'état 6
+    tMAIN  shift, and go to state 6
 
 
-État 4
+state 4
 
     2 RETURN_TYPE: TYPE .
 
-    $défaut  réduction par utilisation de la règle 2 (RETURN_TYPE)
+    $default  reduce using rule 2 (RETURN_TYPE)
 
 
-État 5
+state 5
 
     0 $accept: PROGRAM $end .
 
-    $défaut  accepter
+    $default  accept
 
 
-État 6
+state 6
 
     1 PROGRAM: RETURN_TYPE tMAIN . tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY
 
-    tOPENED_PARENTHESIS  décalage et aller à l'état 7
+    tOPENED_PARENTHESIS  shift, and go to state 7
 
 
-État 7
+state 7
 
     1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS . tCLOSED_PARENTHESIS BODY
 
-    tCLOSED_PARENTHESIS  décalage et aller à l'état 8
+    tCLOSED_PARENTHESIS  shift, and go to state 8
 
 
-État 8
+state 8
 
     1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS . BODY
 
-    tOPENED_C_BRACKET  décalage et aller à l'état 9
+    tOPENED_C_BRACKET  shift, and go to state 9
 
-    BODY  aller à l'état 10
+    BODY  go to state 10
 
 
-État 9
+state 9
 
     4 BODY: tOPENED_C_BRACKET . LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET
 
-    tCONST  décalage et aller à l'état 11
-    tINT    décalage et aller à l'état 1
+    tCONST  shift, and go to state 11
+    tINT    shift, and go to state 1
 
-    $défaut  réduction par utilisation de la règle 6 (LISTE_DECLARATIONS)
+    $default  reduce using rule 6 (LISTE_DECLARATIONS)
 
-    LISTE_DECLARATIONS  aller à l'état 12
-    TYPE                aller à l'état 13
-    TYPE_OPTION         aller à l'état 14
-    DECLARATION         aller à l'état 15
+    LISTE_DECLARATIONS  go to state 12
+    TYPE                go to state 13
+    TYPE_OPTION         go to state 14
+    DECLARATION         go to state 15
 
 
-État 10
+state 10
 
     1 PROGRAM: RETURN_TYPE tMAIN tOPENED_PARENTHESIS tCLOSED_PARENTHESIS BODY .
 
-    $défaut  réduction par utilisation de la règle 1 (PROGRAM)
+    $default  reduce using rule 1 (PROGRAM)
 
 
-État 11
+state 11
 
    15 TYPE_OPTION: tCONST .
 
-    $défaut  réduction par utilisation de la règle 15 (TYPE_OPTION)
+    $default  reduce using rule 15 (TYPE_OPTION)
 
 
-État 12
+state 12
 
     4 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS . LISTE_INSTRUCTIONS tCLOSED_C_BRACKET
 
-    tIDENTIFIER  décalage et aller à l'état 16
-    tPRINTF      décalage et aller à l'état 17
-    tIF          décalage et aller à l'état 18
-    tWHILE       décalage et aller à l'état 19
+    tIDENTIFIER  shift, and go to state 16
+    tPRINTF      shift, and go to state 17
+    tIF          shift, and go to state 18
+    tWHILE       shift, and go to state 19
 
-    $défaut  réduction par utilisation de la règle 8 (LISTE_INSTRUCTIONS)
+    $default  reduce using rule 8 (LISTE_INSTRUCTIONS)
 
-    LISTE_INSTRUCTIONS  aller à l'état 20
-    INSTRUCTION         aller à l'état 21
-    CONDITION_IF        aller à l'état 22
-    CONDITION           aller à l'état 23
-    WHILE               aller à l'état 24
-    AFFECTATION         aller à l'état 25
-    COP                 aller à l'état 26
-    AFFICHAGE           aller à l'état 27
+    LISTE_INSTRUCTIONS  go to state 20
+    INSTRUCTION         go to state 21
+    CONDITION_IF        go to state 22
+    CONDITION           go to state 23
+    WHILE               go to state 24
+    AFFECTATION         go to state 25
+    COP                 go to state 26
+    AFFICHAGE           go to state 27
 
 
-État 13
+state 13
 
    24 DECLARATION: TYPE . LIST_IDENTIFIER tSEMI_COLUMN
    25            | TYPE . LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 
-    tIDENTIFIER  décalage et aller à l'état 28
+    tIDENTIFIER  shift, and go to state 28
 
-    LIST_IDENTIFIER  aller à l'état 29
+    LIST_IDENTIFIER  go to state 29
 
 
-État 14
+state 14
 
    23 DECLARATION: TYPE_OPTION . TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 
-    tINT  décalage et aller à l'état 1
+    tINT  shift, and go to state 1
 
-    TYPE  aller à l'état 30
+    TYPE  go to state 30
 
 
-État 15
+state 15
 
     5 LISTE_DECLARATIONS: DECLARATION . LISTE_DECLARATIONS
 
-    tCONST  décalage et aller à l'état 11
-    tINT    décalage et aller à l'état 1
+    tCONST  shift, and go to state 11
+    tINT    shift, and go to state 1
 
-    $défaut  réduction par utilisation de la règle 6 (LISTE_DECLARATIONS)
+    $default  reduce using rule 6 (LISTE_DECLARATIONS)
 
-    LISTE_DECLARATIONS  aller à l'état 31
-    TYPE                aller à l'état 13
-    TYPE_OPTION         aller à l'état 14
-    DECLARATION         aller à l'état 15
+    LISTE_DECLARATIONS  go to state 31
+    TYPE                go to state 13
+    TYPE_OPTION         go to state 14
+    DECLARATION         go to state 15
 
 
-État 16
+state 16
 
    29 AFFECTATION: tIDENTIFIER . tEQUAL tNUMBER tSEMI_COLUMN
    30 COP: tIDENTIFIER . tEQUAL EXPRESSION tSEMI_COLUMN
 
-    tEQUAL  décalage et aller à l'état 32
+    tEQUAL  shift, and go to state 32
 
 
-État 17
+state 17
 
    31 AFFICHAGE: tPRINTF . tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN
 
-    tOPENED_PARENTHESIS  décalage et aller à l'état 33
+    tOPENED_PARENTHESIS  shift, and go to state 33
 
 
-État 18
+state 18
 
    16 CONDITION_IF: tIF . tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS
 
-    tOPENED_PARENTHESIS  décalage et aller à l'état 34
+    tOPENED_PARENTHESIS  shift, and go to state 34
 
 
-État 19
+state 19
 
-   22 WHILE: tWHILE . tOPENED_PARENTHESIS $@2 EXPRESSION tCLOSED_PARENTHESIS $@3 BODY
+   22 WHILE: tWHILE . tOPENED_PARENTHESIS @2 EXPRESSION tCLOSED_PARENTHESIS @3 BODY
 
-    tOPENED_PARENTHESIS  décalage et aller à l'état 35
+    tOPENED_PARENTHESIS  shift, and go to state 35
 
 
-État 20
+state 20
 
     4 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS . tCLOSED_C_BRACKET
 
-    tCLOSED_C_BRACKET  décalage et aller à l'état 36
+    tCLOSED_C_BRACKET  shift, and go to state 36
 
 
-État 21
+state 21
 
     7 LISTE_INSTRUCTIONS: INSTRUCTION . LISTE_INSTRUCTIONS
 
-    tIDENTIFIER  décalage et aller à l'état 16
-    tPRINTF      décalage et aller à l'état 17
-    tIF          décalage et aller à l'état 18
-    tWHILE       décalage et aller à l'état 19
+    tIDENTIFIER  shift, and go to state 16
+    tPRINTF      shift, and go to state 17
+    tIF          shift, and go to state 18
+    tWHILE       shift, and go to state 19
 
-    $défaut  réduction par utilisation de la règle 8 (LISTE_INSTRUCTIONS)
+    $default  reduce using rule 8 (LISTE_INSTRUCTIONS)
 
-    LISTE_INSTRUCTIONS  aller à l'état 37
-    INSTRUCTION         aller à l'état 21
-    CONDITION_IF        aller à l'état 22
-    CONDITION           aller à l'état 23
-    WHILE               aller à l'état 24
-    AFFECTATION         aller à l'état 25
-    COP                 aller à l'état 26
-    AFFICHAGE           aller à l'état 27
+    LISTE_INSTRUCTIONS  go to state 37
+    INSTRUCTION         go to state 21
+    CONDITION_IF        go to state 22
+    CONDITION           go to state 23
+    WHILE               go to state 24
+    AFFECTATION         go to state 25
+    COP                 go to state 26
+    AFFICHAGE           go to state 27
 
 
-État 22
+state 22
 
-   18 CONDITION: CONDITION_IF . BODY $@1 tELSE BODY
+   18 CONDITION: CONDITION_IF . BODY @1 tELSE BODY
    19          | CONDITION_IF . BODY
 
-    tOPENED_C_BRACKET  décalage et aller à l'état 9
+    tOPENED_C_BRACKET  shift, and go to state 9
 
-    BODY  aller à l'état 38
+    BODY  go to state 38
 
 
-État 23
+state 23
 
    12 INSTRUCTION: CONDITION .
 
-    $défaut  réduction par utilisation de la règle 12 (INSTRUCTION)
+    $default  reduce using rule 12 (INSTRUCTION)
 
 
-État 24
+state 24
 
    11 INSTRUCTION: WHILE .
 
-    $défaut  réduction par utilisation de la règle 11 (INSTRUCTION)
+    $default  reduce using rule 11 (INSTRUCTION)
 
 
-État 25
+state 25
 
     9 INSTRUCTION: AFFECTATION .
 
-    $défaut  réduction par utilisation de la règle 9 (INSTRUCTION)
+    $default  reduce using rule 9 (INSTRUCTION)
 
 
-État 26
+state 26
 
    10 INSTRUCTION: COP .
 
-    $défaut  réduction par utilisation de la règle 10 (INSTRUCTION)
+    $default  reduce using rule 10 (INSTRUCTION)
 
 
-État 27
+state 27
 
    13 INSTRUCTION: AFFICHAGE .
 
-    $défaut  réduction par utilisation de la règle 13 (INSTRUCTION)
+    $default  reduce using rule 13 (INSTRUCTION)
 
 
-État 28
+state 28
 
    26 LIST_IDENTIFIER: tIDENTIFIER .
-   28                | tIDENTIFIER . $@4 tCOMMA LIST_IDENTIFIER
+   28                | tIDENTIFIER . @4 tCOMMA LIST_IDENTIFIER
 
-    tCOMMA    réduction par utilisation de la règle 27 ($@4)
-    $défaut  réduction par utilisation de la règle 26 (LIST_IDENTIFIER)
+    tCOMMA    reduce using rule 27 (@4)
+    $default  reduce using rule 26 (LIST_IDENTIFIER)
 
-    $@4  aller à l'état 39
+    @4  go to state 39
 
 
-État 29
+state 29
 
    24 DECLARATION: TYPE LIST_IDENTIFIER . tSEMI_COLUMN
    25            | TYPE LIST_IDENTIFIER . tEQUAL EXPRESSION tSEMI_COLUMN
 
-    tSEMI_COLUMN  décalage et aller à l'état 40
-    tEQUAL        décalage et aller à l'état 41
+    tSEMI_COLUMN  shift, and go to state 40
+    tEQUAL        shift, and go to state 41
 
 
-État 30
+state 30
 
    23 DECLARATION: TYPE_OPTION TYPE . LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN
 
-    tIDENTIFIER  décalage et aller à l'état 28
+    tIDENTIFIER  shift, and go to state 28
 
-    LIST_IDENTIFIER  aller à l'état 42
+    LIST_IDENTIFIER  go to state 42
 
 
-État 31
+state 31
 
     5 LISTE_DECLARATIONS: DECLARATION LISTE_DECLARATIONS .
 
-    $défaut  réduction par utilisation de la règle 5 (LISTE_DECLARATIONS)
+    $default  reduce using rule 5 (LISTE_DECLARATIONS)
 
 
-État 32
+state 32
 
    29 AFFECTATION: tIDENTIFIER tEQUAL . tNUMBER tSEMI_COLUMN
    30 COP: tIDENTIFIER tEQUAL . EXPRESSION tSEMI_COLUMN
 
-    tNUMBER              décalage et aller à l'état 43
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 43
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 47
+    EXPRESSION  go to state 47
 
 
-État 33
+state 33
 
    31 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS . tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN
 
-    tIDENTIFIER  décalage et aller à l'état 48
+    tIDENTIFIER  shift, and go to state 48
 
 
-État 34
+state 34
 
    16 CONDITION_IF: tIF tOPENED_PARENTHESIS . EXPRESSION tCLOSED_PARENTHESIS
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 50
-
-
-État 35
-
-   22 WHILE: tWHILE tOPENED_PARENTHESIS . $@2 EXPRESSION tCLOSED_PARENTHESIS $@3 BODY
-
-    $défaut  réduction par utilisation de la règle 20 ($@2)
-
-    $@2  aller à l'état 51
+    EXPRESSION  go to state 50
 
 
-État 36
+state 35
+
+   22 WHILE: tWHILE tOPENED_PARENTHESIS . @2 EXPRESSION tCLOSED_PARENTHESIS @3 BODY
+
+    $default  reduce using rule 20 (@2)
+
+    @2  go to state 51
+
+
+state 36
 
     4 BODY: tOPENED_C_BRACKET LISTE_DECLARATIONS LISTE_INSTRUCTIONS tCLOSED_C_BRACKET .
 
-    $défaut  réduction par utilisation de la règle 4 (BODY)
+    $default  reduce using rule 4 (BODY)
 
 
-État 37
+state 37
 
     7 LISTE_INSTRUCTIONS: INSTRUCTION LISTE_INSTRUCTIONS .
 
-    $défaut  réduction par utilisation de la règle 7 (LISTE_INSTRUCTIONS)
+    $default  reduce using rule 7 (LISTE_INSTRUCTIONS)
 
 
-État 38
+state 38
 
-   18 CONDITION: CONDITION_IF BODY . $@1 tELSE BODY
+   18 CONDITION: CONDITION_IF BODY . @1 tELSE BODY
    19          | CONDITION_IF BODY .
 
-    tELSE     réduction par utilisation de la règle 17 ($@1)
-    $défaut  réduction par utilisation de la règle 19 (CONDITION)
+    tELSE     reduce using rule 17 (@1)
+    $default  reduce using rule 19 (CONDITION)
 
-    $@1  aller à l'état 52
-
-
-État 39
-
-   28 LIST_IDENTIFIER: tIDENTIFIER $@4 . tCOMMA LIST_IDENTIFIER
-
-    tCOMMA  décalage et aller à l'état 53
+    @1  go to state 52
 
 
-État 40
+state 39
+
+   28 LIST_IDENTIFIER: tIDENTIFIER @4 . tCOMMA LIST_IDENTIFIER
+
+    tCOMMA  shift, and go to state 53
+
+
+state 40
 
    24 DECLARATION: TYPE LIST_IDENTIFIER tSEMI_COLUMN .
 
-    $défaut  réduction par utilisation de la règle 24 (DECLARATION)
+    $default  reduce using rule 24 (DECLARATION)
 
 
-État 41
+state 41
 
    25 DECLARATION: TYPE LIST_IDENTIFIER tEQUAL . EXPRESSION tSEMI_COLUMN
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 54
+    EXPRESSION  go to state 54
 
 
-État 42
+state 42
 
    23 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER . tEQUAL EXPRESSION tSEMI_COLUMN
 
-    tEQUAL  décalage et aller à l'état 55
+    tEQUAL  shift, and go to state 55
 
 
-État 43
+state 43
 
    29 AFFECTATION: tIDENTIFIER tEQUAL tNUMBER . tSEMI_COLUMN
    42 EXPRESSION: tNUMBER .
 
-    tSEMI_COLUMN  décalage et aller à l'état 56
+    tSEMI_COLUMN  shift, and go to state 56
 
-    tSEMI_COLUMN  [réduction par utilisation de la règle 42 (EXPRESSION)]
-    $défaut      réduction par utilisation de la règle 42 (EXPRESSION)
+    tSEMI_COLUMN  [reduce using rule 42 (EXPRESSION)]
+    $default      reduce using rule 42 (EXPRESSION)
 
 
-État 44
+state 44
 
    40 EXPRESSION: tIDENTIFIER .
 
-    $défaut  réduction par utilisation de la règle 40 (EXPRESSION)
+    $default  reduce using rule 40 (EXPRESSION)
 
 
-État 45
+state 45
 
    41 EXPRESSION: tMINUS . EXPRESSION
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 57
+    EXPRESSION  go to state 57
 
 
-État 46
+state 46
 
    32 EXPRESSION: tOPENED_PARENTHESIS . EXPRESSION tCLOSED_PARENTHESIS
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 58
+    EXPRESSION  go to state 58
 
 
-État 47
+state 47
 
    30 COP: tIDENTIFIER tEQUAL EXPRESSION . tSEMI_COLUMN
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
@@ -608,31 +608,31 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSEMI_COLUMN  décalage et aller à l'état 59
-    tSLASH        décalage et aller à l'état 60
-    tSTAR         décalage et aller à l'état 61
-    tPLUS         décalage et aller à l'état 62
-    tMINUS        décalage et aller à l'état 63
-    tEQUAL        décalage et aller à l'état 64
-    tSUP          décalage et aller à l'état 65
-    tINF          décalage et aller à l'état 66
+    tSEMI_COLUMN  shift, and go to state 59
+    tSLASH        shift, and go to state 60
+    tSTAR         shift, and go to state 61
+    tPLUS         shift, and go to state 62
+    tMINUS        shift, and go to state 63
+    tEQUAL        shift, and go to state 64
+    tSUP          shift, and go to state 65
+    tINF          shift, and go to state 66
 
 
-État 48
+state 48
 
    31 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER . tCLOSED_PARENTHESIS tSEMI_COLUMN
 
-    tCLOSED_PARENTHESIS  décalage et aller à l'état 67
+    tCLOSED_PARENTHESIS  shift, and go to state 67
 
 
-État 49
+state 49
 
    42 EXPRESSION: tNUMBER .
 
-    $défaut  réduction par utilisation de la règle 42 (EXPRESSION)
+    $default  reduce using rule 42 (EXPRESSION)
 
 
-État 50
+state 50
 
    16 CONDITION_IF: tIF tOPENED_PARENTHESIS EXPRESSION . tCLOSED_PARENTHESIS
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
@@ -643,45 +643,45 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSLASH               décalage et aller à l'état 60
-    tSTAR                décalage et aller à l'état 61
-    tPLUS                décalage et aller à l'état 62
-    tMINUS               décalage et aller à l'état 63
-    tEQUAL               décalage et aller à l'état 64
-    tCLOSED_PARENTHESIS  décalage et aller à l'état 68
-    tSUP                 décalage et aller à l'état 65
-    tINF                 décalage et aller à l'état 66
+    tSLASH               shift, and go to state 60
+    tSTAR                shift, and go to state 61
+    tPLUS                shift, and go to state 62
+    tMINUS               shift, and go to state 63
+    tEQUAL               shift, and go to state 64
+    tCLOSED_PARENTHESIS  shift, and go to state 68
+    tSUP                 shift, and go to state 65
+    tINF                 shift, and go to state 66
 
 
-État 51
+state 51
 
-   22 WHILE: tWHILE tOPENED_PARENTHESIS $@2 . EXPRESSION tCLOSED_PARENTHESIS $@3 BODY
+   22 WHILE: tWHILE tOPENED_PARENTHESIS @2 . EXPRESSION tCLOSED_PARENTHESIS @3 BODY
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 69
-
-
-État 52
-
-   18 CONDITION: CONDITION_IF BODY $@1 . tELSE BODY
-
-    tELSE  décalage et aller à l'état 70
+    EXPRESSION  go to state 69
 
 
-État 53
+state 52
 
-   28 LIST_IDENTIFIER: tIDENTIFIER $@4 tCOMMA . LIST_IDENTIFIER
+   18 CONDITION: CONDITION_IF BODY @1 . tELSE BODY
 
-    tIDENTIFIER  décalage et aller à l'état 28
-
-    LIST_IDENTIFIER  aller à l'état 71
+    tELSE  shift, and go to state 70
 
 
-État 54
+state 53
+
+   28 LIST_IDENTIFIER: tIDENTIFIER @4 tCOMMA . LIST_IDENTIFIER
+
+    tIDENTIFIER  shift, and go to state 28
+
+    LIST_IDENTIFIER  go to state 71
+
+
+state 54
 
    25 DECLARATION: TYPE LIST_IDENTIFIER tEQUAL EXPRESSION . tSEMI_COLUMN
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
@@ -692,36 +692,36 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSEMI_COLUMN  décalage et aller à l'état 72
-    tSLASH        décalage et aller à l'état 60
-    tSTAR         décalage et aller à l'état 61
-    tPLUS         décalage et aller à l'état 62
-    tMINUS        décalage et aller à l'état 63
-    tEQUAL        décalage et aller à l'état 64
-    tSUP          décalage et aller à l'état 65
-    tINF          décalage et aller à l'état 66
+    tSEMI_COLUMN  shift, and go to state 72
+    tSLASH        shift, and go to state 60
+    tSTAR         shift, and go to state 61
+    tPLUS         shift, and go to state 62
+    tMINUS        shift, and go to state 63
+    tEQUAL        shift, and go to state 64
+    tSUP          shift, and go to state 65
+    tINF          shift, and go to state 66
 
 
-État 55
+state 55
 
    23 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL . EXPRESSION tSEMI_COLUMN
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 73
+    EXPRESSION  go to state 73
 
 
-État 56
+state 56
 
    29 AFFECTATION: tIDENTIFIER tEQUAL tNUMBER tSEMI_COLUMN .
 
-    $défaut  réduction par utilisation de la règle 29 (AFFECTATION)
+    $default  reduce using rule 29 (AFFECTATION)
 
 
-État 57
+state 57
 
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    34           | EXPRESSION . tSLASH EXPRESSION
@@ -732,15 +732,15 @@ EXPRESSION (48)
    39           | EXPRESSION . tINF EXPRESSION
    41           | tMINUS EXPRESSION .
 
-    tSUP  décalage et aller à l'état 65
-    tINF  décalage et aller à l'état 66
+    tSUP  shift, and go to state 65
+    tINF  shift, and go to state 66
 
-    tSUP      [réduction par utilisation de la règle 41 (EXPRESSION)]
-    tINF      [réduction par utilisation de la règle 41 (EXPRESSION)]
-    $défaut  réduction par utilisation de la règle 41 (EXPRESSION)
+    tSUP      [reduce using rule 41 (EXPRESSION)]
+    tINF      [reduce using rule 41 (EXPRESSION)]
+    $default  reduce using rule 41 (EXPRESSION)
 
 
-État 58
+state 58
 
    32 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION . tCLOSED_PARENTHESIS
    33           | EXPRESSION . tSTAR EXPRESSION
@@ -751,119 +751,119 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSLASH               décalage et aller à l'état 60
-    tSTAR                décalage et aller à l'état 61
-    tPLUS                décalage et aller à l'état 62
-    tMINUS               décalage et aller à l'état 63
-    tEQUAL               décalage et aller à l'état 64
-    tCLOSED_PARENTHESIS  décalage et aller à l'état 74
-    tSUP                 décalage et aller à l'état 65
-    tINF                 décalage et aller à l'état 66
+    tSLASH               shift, and go to state 60
+    tSTAR                shift, and go to state 61
+    tPLUS                shift, and go to state 62
+    tMINUS               shift, and go to state 63
+    tEQUAL               shift, and go to state 64
+    tCLOSED_PARENTHESIS  shift, and go to state 74
+    tSUP                 shift, and go to state 65
+    tINF                 shift, and go to state 66
 
 
-État 59
+state 59
 
    30 COP: tIDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN .
 
-    $défaut  réduction par utilisation de la règle 30 (COP)
+    $default  reduce using rule 30 (COP)
 
 
-État 60
+state 60
 
    34 EXPRESSION: EXPRESSION tSLASH . EXPRESSION
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 75
+    EXPRESSION  go to state 75
 
 
-État 61
+state 61
 
    33 EXPRESSION: EXPRESSION tSTAR . EXPRESSION
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 76
+    EXPRESSION  go to state 76
 
 
-État 62
+state 62
 
    35 EXPRESSION: EXPRESSION tPLUS . EXPRESSION
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 77
+    EXPRESSION  go to state 77
 
 
-État 63
+state 63
 
    36 EXPRESSION: EXPRESSION tMINUS . EXPRESSION
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 78
+    EXPRESSION  go to state 78
 
 
-État 64
+state 64
 
    37 EXPRESSION: EXPRESSION tEQUAL . tEQUAL EXPRESSION
 
-    tEQUAL  décalage et aller à l'état 79
+    tEQUAL  shift, and go to state 79
 
 
-État 65
+state 65
 
    38 EXPRESSION: EXPRESSION tSUP . EXPRESSION
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 80
+    EXPRESSION  go to state 80
 
 
-État 66
+state 66
 
    39 EXPRESSION: EXPRESSION tINF . EXPRESSION
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 81
+    EXPRESSION  go to state 81
 
 
-État 67
+state 67
 
    31 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS . tSEMI_COLUMN
 
-    tSEMI_COLUMN  décalage et aller à l'état 82
+    tSEMI_COLUMN  shift, and go to state 82
 
 
-État 68
+state 68
 
    16 CONDITION_IF: tIF tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS .
 
-    $défaut  réduction par utilisation de la règle 16 (CONDITION_IF)
+    $default  reduce using rule 16 (CONDITION_IF)
 
 
-État 69
+state 69
 
-   22 WHILE: tWHILE tOPENED_PARENTHESIS $@2 EXPRESSION . tCLOSED_PARENTHESIS $@3 BODY
+   22 WHILE: tWHILE tOPENED_PARENTHESIS @2 EXPRESSION . tCLOSED_PARENTHESIS @3 BODY
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    34           | EXPRESSION . tSLASH EXPRESSION
    35           | EXPRESSION . tPLUS EXPRESSION
@@ -872,40 +872,40 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSLASH               décalage et aller à l'état 60
-    tSTAR                décalage et aller à l'état 61
-    tPLUS                décalage et aller à l'état 62
-    tMINUS               décalage et aller à l'état 63
-    tEQUAL               décalage et aller à l'état 64
-    tCLOSED_PARENTHESIS  décalage et aller à l'état 83
-    tSUP                 décalage et aller à l'état 65
-    tINF                 décalage et aller à l'état 66
+    tSLASH               shift, and go to state 60
+    tSTAR                shift, and go to state 61
+    tPLUS                shift, and go to state 62
+    tMINUS               shift, and go to state 63
+    tEQUAL               shift, and go to state 64
+    tCLOSED_PARENTHESIS  shift, and go to state 83
+    tSUP                 shift, and go to state 65
+    tINF                 shift, and go to state 66
 
 
-État 70
+state 70
 
-   18 CONDITION: CONDITION_IF BODY $@1 tELSE . BODY
+   18 CONDITION: CONDITION_IF BODY @1 tELSE . BODY
 
-    tOPENED_C_BRACKET  décalage et aller à l'état 9
+    tOPENED_C_BRACKET  shift, and go to state 9
 
-    BODY  aller à l'état 84
-
-
-État 71
-
-   28 LIST_IDENTIFIER: tIDENTIFIER $@4 tCOMMA LIST_IDENTIFIER .
-
-    $défaut  réduction par utilisation de la règle 28 (LIST_IDENTIFIER)
+    BODY  go to state 84
 
 
-État 72
+state 71
+
+   28 LIST_IDENTIFIER: tIDENTIFIER @4 tCOMMA LIST_IDENTIFIER .
+
+    $default  reduce using rule 28 (LIST_IDENTIFIER)
+
+
+state 72
 
    25 DECLARATION: TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN .
 
-    $défaut  réduction par utilisation de la règle 25 (DECLARATION)
+    $default  reduce using rule 25 (DECLARATION)
 
 
-État 73
+state 73
 
    23 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION . tSEMI_COLUMN
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
@@ -916,24 +916,24 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSEMI_COLUMN  décalage et aller à l'état 85
-    tSLASH        décalage et aller à l'état 60
-    tSTAR         décalage et aller à l'état 61
-    tPLUS         décalage et aller à l'état 62
-    tMINUS        décalage et aller à l'état 63
-    tEQUAL        décalage et aller à l'état 64
-    tSUP          décalage et aller à l'état 65
-    tINF          décalage et aller à l'état 66
+    tSEMI_COLUMN  shift, and go to state 85
+    tSLASH        shift, and go to state 60
+    tSTAR         shift, and go to state 61
+    tPLUS         shift, and go to state 62
+    tMINUS        shift, and go to state 63
+    tEQUAL        shift, and go to state 64
+    tSUP          shift, and go to state 65
+    tINF          shift, and go to state 66
 
 
-État 74
+state 74
 
    32 EXPRESSION: tOPENED_PARENTHESIS EXPRESSION tCLOSED_PARENTHESIS .
 
-    $défaut  réduction par utilisation de la règle 32 (EXPRESSION)
+    $default  reduce using rule 32 (EXPRESSION)
 
 
-État 75
+state 75
 
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    34           | EXPRESSION . tSLASH EXPRESSION
@@ -944,15 +944,15 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSUP  décalage et aller à l'état 65
-    tINF  décalage et aller à l'état 66
+    tSUP  shift, and go to state 65
+    tINF  shift, and go to state 66
 
-    tSUP      [réduction par utilisation de la règle 34 (EXPRESSION)]
-    tINF      [réduction par utilisation de la règle 34 (EXPRESSION)]
-    $défaut  réduction par utilisation de la règle 34 (EXPRESSION)
+    tSUP      [reduce using rule 34 (EXPRESSION)]
+    tINF      [reduce using rule 34 (EXPRESSION)]
+    $default  reduce using rule 34 (EXPRESSION)
 
 
-État 76
+state 76
 
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    33           | EXPRESSION tSTAR EXPRESSION .
@@ -963,15 +963,15 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSUP  décalage et aller à l'état 65
-    tINF  décalage et aller à l'état 66
+    tSUP  shift, and go to state 65
+    tINF  shift, and go to state 66
 
-    tSUP      [réduction par utilisation de la règle 33 (EXPRESSION)]
-    tINF      [réduction par utilisation de la règle 33 (EXPRESSION)]
-    $défaut  réduction par utilisation de la règle 33 (EXPRESSION)
+    tSUP      [reduce using rule 33 (EXPRESSION)]
+    tINF      [reduce using rule 33 (EXPRESSION)]
+    $default  reduce using rule 33 (EXPRESSION)
 
 
-État 77
+state 77
 
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    34           | EXPRESSION . tSLASH EXPRESSION
@@ -982,17 +982,17 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSLASH  décalage et aller à l'état 60
-    tSTAR   décalage et aller à l'état 61
-    tSUP    décalage et aller à l'état 65
-    tINF    décalage et aller à l'état 66
+    tSLASH  shift, and go to state 60
+    tSTAR   shift, and go to state 61
+    tSUP    shift, and go to state 65
+    tINF    shift, and go to state 66
 
-    tSUP      [réduction par utilisation de la règle 35 (EXPRESSION)]
-    tINF      [réduction par utilisation de la règle 35 (EXPRESSION)]
-    $défaut  réduction par utilisation de la règle 35 (EXPRESSION)
+    tSUP      [reduce using rule 35 (EXPRESSION)]
+    tINF      [reduce using rule 35 (EXPRESSION)]
+    $default  reduce using rule 35 (EXPRESSION)
 
 
-État 78
+state 78
 
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    34           | EXPRESSION . tSLASH EXPRESSION
@@ -1003,29 +1003,29 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSLASH  décalage et aller à l'état 60
-    tSTAR   décalage et aller à l'état 61
-    tSUP    décalage et aller à l'état 65
-    tINF    décalage et aller à l'état 66
+    tSLASH  shift, and go to state 60
+    tSTAR   shift, and go to state 61
+    tSUP    shift, and go to state 65
+    tINF    shift, and go to state 66
 
-    tSUP      [réduction par utilisation de la règle 36 (EXPRESSION)]
-    tINF      [réduction par utilisation de la règle 36 (EXPRESSION)]
-    $défaut  réduction par utilisation de la règle 36 (EXPRESSION)
+    tSUP      [reduce using rule 36 (EXPRESSION)]
+    tINF      [reduce using rule 36 (EXPRESSION)]
+    $default  reduce using rule 36 (EXPRESSION)
 
 
-État 79
+state 79
 
    37 EXPRESSION: EXPRESSION tEQUAL tEQUAL . EXPRESSION
 
-    tNUMBER              décalage et aller à l'état 49
-    tIDENTIFIER          décalage et aller à l'état 44
-    tMINUS               décalage et aller à l'état 45
-    tOPENED_PARENTHESIS  décalage et aller à l'état 46
+    tNUMBER              shift, and go to state 49
+    tIDENTIFIER          shift, and go to state 44
+    tMINUS               shift, and go to state 45
+    tOPENED_PARENTHESIS  shift, and go to state 46
 
-    EXPRESSION  aller à l'état 86
+    EXPRESSION  go to state 86
 
 
-État 80
+state 80
 
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    34           | EXPRESSION . tSLASH EXPRESSION
@@ -1036,25 +1036,25 @@ EXPRESSION (48)
    38           | EXPRESSION tSUP EXPRESSION .
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSLASH  décalage et aller à l'état 60
-    tSTAR   décalage et aller à l'état 61
-    tPLUS   décalage et aller à l'état 62
-    tMINUS  décalage et aller à l'état 63
-    tEQUAL  décalage et aller à l'état 64
-    tSUP    décalage et aller à l'état 65
-    tINF    décalage et aller à l'état 66
+    tSLASH  shift, and go to state 60
+    tSTAR   shift, and go to state 61
+    tPLUS   shift, and go to state 62
+    tMINUS  shift, and go to state 63
+    tEQUAL  shift, and go to state 64
+    tSUP    shift, and go to state 65
+    tINF    shift, and go to state 66
 
-    tSLASH    [réduction par utilisation de la règle 38 (EXPRESSION)]
-    tSTAR     [réduction par utilisation de la règle 38 (EXPRESSION)]
-    tPLUS     [réduction par utilisation de la règle 38 (EXPRESSION)]
-    tMINUS    [réduction par utilisation de la règle 38 (EXPRESSION)]
-    tEQUAL    [réduction par utilisation de la règle 38 (EXPRESSION)]
-    tSUP      [réduction par utilisation de la règle 38 (EXPRESSION)]
-    tINF      [réduction par utilisation de la règle 38 (EXPRESSION)]
-    $défaut  réduction par utilisation de la règle 38 (EXPRESSION)
+    tSLASH    [reduce using rule 38 (EXPRESSION)]
+    tSTAR     [reduce using rule 38 (EXPRESSION)]
+    tPLUS     [reduce using rule 38 (EXPRESSION)]
+    tMINUS    [reduce using rule 38 (EXPRESSION)]
+    tEQUAL    [reduce using rule 38 (EXPRESSION)]
+    tSUP      [reduce using rule 38 (EXPRESSION)]
+    tINF      [reduce using rule 38 (EXPRESSION)]
+    $default  reduce using rule 38 (EXPRESSION)
 
 
-État 81
+state 81
 
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    34           | EXPRESSION . tSLASH EXPRESSION
@@ -1065,55 +1065,55 @@ EXPRESSION (48)
    39           | EXPRESSION . tINF EXPRESSION
    39           | EXPRESSION tINF EXPRESSION .
 
-    tSLASH  décalage et aller à l'état 60
-    tSTAR   décalage et aller à l'état 61
-    tPLUS   décalage et aller à l'état 62
-    tMINUS  décalage et aller à l'état 63
-    tEQUAL  décalage et aller à l'état 64
-    tSUP    décalage et aller à l'état 65
-    tINF    décalage et aller à l'état 66
+    tSLASH  shift, and go to state 60
+    tSTAR   shift, and go to state 61
+    tPLUS   shift, and go to state 62
+    tMINUS  shift, and go to state 63
+    tEQUAL  shift, and go to state 64
+    tSUP    shift, and go to state 65
+    tINF    shift, and go to state 66
 
-    tSLASH    [réduction par utilisation de la règle 39 (EXPRESSION)]
-    tSTAR     [réduction par utilisation de la règle 39 (EXPRESSION)]
-    tPLUS     [réduction par utilisation de la règle 39 (EXPRESSION)]
-    tMINUS    [réduction par utilisation de la règle 39 (EXPRESSION)]
-    tEQUAL    [réduction par utilisation de la règle 39 (EXPRESSION)]
-    tSUP      [réduction par utilisation de la règle 39 (EXPRESSION)]
-    tINF      [réduction par utilisation de la règle 39 (EXPRESSION)]
-    $défaut  réduction par utilisation de la règle 39 (EXPRESSION)
+    tSLASH    [reduce using rule 39 (EXPRESSION)]
+    tSTAR     [reduce using rule 39 (EXPRESSION)]
+    tPLUS     [reduce using rule 39 (EXPRESSION)]
+    tMINUS    [reduce using rule 39 (EXPRESSION)]
+    tEQUAL    [reduce using rule 39 (EXPRESSION)]
+    tSUP      [reduce using rule 39 (EXPRESSION)]
+    tINF      [reduce using rule 39 (EXPRESSION)]
+    $default  reduce using rule 39 (EXPRESSION)
 
 
-État 82
+state 82
 
    31 AFFICHAGE: tPRINTF tOPENED_PARENTHESIS tIDENTIFIER tCLOSED_PARENTHESIS tSEMI_COLUMN .
 
-    $défaut  réduction par utilisation de la règle 31 (AFFICHAGE)
+    $default  reduce using rule 31 (AFFICHAGE)
 
 
-État 83
+state 83
 
-   22 WHILE: tWHILE tOPENED_PARENTHESIS $@2 EXPRESSION tCLOSED_PARENTHESIS . $@3 BODY
+   22 WHILE: tWHILE tOPENED_PARENTHESIS @2 EXPRESSION tCLOSED_PARENTHESIS . @3 BODY
 
-    $défaut  réduction par utilisation de la règle 21 ($@3)
+    $default  reduce using rule 21 (@3)
 
-    $@3  aller à l'état 87
-
-
-État 84
-
-   18 CONDITION: CONDITION_IF BODY $@1 tELSE BODY .
-
-    $défaut  réduction par utilisation de la règle 18 (CONDITION)
+    @3  go to state 87
 
 
-État 85
+state 84
+
+   18 CONDITION: CONDITION_IF BODY @1 tELSE BODY .
+
+    $default  reduce using rule 18 (CONDITION)
+
+
+state 85
 
    23 DECLARATION: TYPE_OPTION TYPE LIST_IDENTIFIER tEQUAL EXPRESSION tSEMI_COLUMN .
 
-    $défaut  réduction par utilisation de la règle 23 (DECLARATION)
+    $default  reduce using rule 23 (DECLARATION)
 
 
-État 86
+state 86
 
    33 EXPRESSION: EXPRESSION . tSTAR EXPRESSION
    34           | EXPRESSION . tSLASH EXPRESSION
@@ -1124,30 +1124,30 @@ EXPRESSION (48)
    38           | EXPRESSION . tSUP EXPRESSION
    39           | EXPRESSION . tINF EXPRESSION
 
-    tSLASH  décalage et aller à l'état 60
-    tSTAR   décalage et aller à l'état 61
-    tPLUS   décalage et aller à l'état 62
-    tMINUS  décalage et aller à l'état 63
-    tEQUAL  décalage et aller à l'état 64
-    tSUP    décalage et aller à l'état 65
-    tINF    décalage et aller à l'état 66
+    tSLASH  shift, and go to state 60
+    tSTAR   shift, and go to state 61
+    tPLUS   shift, and go to state 62
+    tMINUS  shift, and go to state 63
+    tEQUAL  shift, and go to state 64
+    tSUP    shift, and go to state 65
+    tINF    shift, and go to state 66
 
-    tSUP      [réduction par utilisation de la règle 37 (EXPRESSION)]
-    tINF      [réduction par utilisation de la règle 37 (EXPRESSION)]
-    $défaut  réduction par utilisation de la règle 37 (EXPRESSION)
-
-
-État 87
-
-   22 WHILE: tWHILE tOPENED_PARENTHESIS $@2 EXPRESSION tCLOSED_PARENTHESIS $@3 . BODY
-
-    tOPENED_C_BRACKET  décalage et aller à l'état 9
-
-    BODY  aller à l'état 88
+    tSUP      [reduce using rule 37 (EXPRESSION)]
+    tINF      [reduce using rule 37 (EXPRESSION)]
+    $default  reduce using rule 37 (EXPRESSION)
 
 
-État 88
+state 87
 
-   22 WHILE: tWHILE tOPENED_PARENTHESIS $@2 EXPRESSION tCLOSED_PARENTHESIS $@3 BODY .
+   22 WHILE: tWHILE tOPENED_PARENTHESIS @2 EXPRESSION tCLOSED_PARENTHESIS @3 . BODY
 
-    $défaut  réduction par utilisation de la règle 22 (WHILE)
+    tOPENED_C_BRACKET  shift, and go to state 9
+
+    BODY  go to state 88
+
+
+state 88
+
+   22 WHILE: tWHILE tOPENED_PARENTHESIS @2 EXPRESSION tCLOSED_PARENTHESIS @3 BODY .
+
+    $default  reduce using rule 22 (WHILE)

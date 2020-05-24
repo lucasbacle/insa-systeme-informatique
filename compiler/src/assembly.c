@@ -2,7 +2,7 @@
 LISTE *listeInstructions = NULL;
 int insert(char *instruction)
 {
-    printf("Insertion ########### %s \n", instruction);
+    //printf("Insertion ########### %s \n", instruction);
     LISTE *aux = listeInstructions;
     LISTE *new = (LISTE *)malloc(sizeof(LISTE));
     new->instruction = strdup(instruction);
@@ -38,7 +38,7 @@ void patch(int from, int to)
         index++;
         aux = aux->next;
     }
-    printf("\n\nINDEX =%d\n\n", index);
+    //printf("\n\nINDEX =%d\n\n", index);
     if (index == from && aux != NULL)
     {
         char *debut = strdup(aux->instruction);
@@ -47,7 +47,7 @@ void patch(int from, int to)
         strcat(debut, add);
         aux->instruction = debut;
         free(add);
-        printf("\n\nON A PATCHE L'INSTRUCTION\n\n");
+        //printf("\n\nON A PATCHE L'INSTRUCTION\n\n");
     }
 }
 
@@ -55,10 +55,10 @@ void display()
 {
     int index = 0;
     LISTE *aux = listeInstructions;
-    printf("DISPLAY @@@@@@@@@@@\n");
+    //printf("DISPLAY @@@@@@@@@@@\n");
     while (aux != NULL)
     {
-        printf("L%d : %s\n", index++, aux->instruction);
+        //printf("L%d : %s\n", index++, aux->instruction);
         aux = aux->next;
     }
 }
