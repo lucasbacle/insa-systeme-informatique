@@ -1,5 +1,5 @@
 # Projet système informatique
-Ce dépot contient un compilateur basé sur LEX et YACC pour un langage C simplifié et l'implémentation VHDL d'un processeur 8 bits avec 4 niveaux de pipeline capable de traiter les programmes précédemment compilés.
+Ce dépot contient un compilateur basé sur LEX et YACC pour un langage C simplifié vers un langage d'assemblage orienté mémoire et l'implémentation VHDL d'un processeur 8 bits avec 4 niveaux de pipeline capable de traiter les programmes précédemment trans-compilés vers un langage d'assemblage orienté registres.
 
 ## Partie compilateur
 - Compilation du projet
