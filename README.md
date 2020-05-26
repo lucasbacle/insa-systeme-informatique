@@ -1,4 +1,4 @@
-# systeme_informatique
+# Projet Système Informatique (PSI)
 Ce dépôt contient le travail que nous avons mené sur le projet "Système informatique' de 4IR à l'INSA de Toulouse.
 
 Le dossier 'compiler/' contient un compilateur pour un langage proche du C décrit dans le sujet du projet produisant un langage d'assemblage orienté mémoire.
