@@ -45,7 +45,6 @@ begin
 	process (CLK) is
 	begin
 	
-		-- TODO: check if rising or falling
 		if falling_edge(CLK) then
 			OUTPUT <= registers(to_integer(unsigned(ADDR)));
 		end if;
