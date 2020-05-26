@@ -30,7 +30,7 @@ int create_symbol(const char *name, type_t type, qualifier_t qualifier)
             symbol->qualifier = qualifier;
             symbol->isInitialized = 0;
             symbols_array[length] = symbol;
-            printf("%s is at %d\n",name,length);
+            //printf("%s is at %d\n",name,length);
             length++;
         }
     }
@@ -67,14 +67,14 @@ int get_symbol_by_name(const char *name)
     SYMBOL *s = NULL;
     int i = 0;
     int find = 0;
-    printf("Name = %s\n",name);
+    //printf("Name = %s\n",name);
 
     while (i < length && !find)
     {
         if (strcmp(symbols_array[i]->name, name) == 0)
         {
             find = 1;
-            printf("Indice = %d\n",i);
+            //printf("Indice = %d\n",i);
             return i;
         }
         i++;
