@@ -42,7 +42,9 @@ ARCHITECTURE behavior OF tb_processor IS
     COMPONENT processor
     PORT(
          RST : IN  std_logic;
-         CLK : IN  std_logic
+         CLK : IN  std_logic;
+			QA : OUT std_logic_vector(7 downto 0);
+			QB : OUT std_logic_vector(7 downto 0)
         );
     END COMPONENT;
     
@@ -50,16 +52,21 @@ ARCHITECTURE behavior OF tb_processor IS
    --Inputs
    signal RST : std_logic := '0';
    signal CLK : std_logic := '0';
+	--Outputs
+   signal QA : std_logic_vector(7 downto 0) := b"00000000";
+   signal QB : std_logic_vector(7 downto 0) := b"00000000";
 
    -- Clock period definitions
-   constant CLK_period : time := 10 ns;
+   constant CLK_period : time := 14 ns;
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: processor PORT MAP (
           RST => RST,
-          CLK => CLK
+          CLK => CLK,
+			 QA => QA,
+			 QB => QB
         );
 
    -- Clock process definitions

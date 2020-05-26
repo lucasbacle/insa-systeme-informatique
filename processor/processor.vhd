@@ -33,7 +33,9 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity processor is
 	 Port (	RST : in  std_logic;
-				CLK : in  std_logic
+				CLK : in  std_logic;
+				QA : out std_logic_vector(7 downto 0);
+				QB : out std_logic_vector(7 downto 0)
 			  );
 end processor;
 
@@ -152,6 +154,10 @@ architecture Behavioral of processor is
 	 signal lc_data: std_logic;
 	
 begin
+	
+	-- pour observation
+	QA <= QA_reg;
+	QB <= QB_reg;
 	
 	process (CLK, RST) is
 	begin

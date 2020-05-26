@@ -55,7 +55,6 @@ begin
 	process (CLK) is
 	begin
 	
-	-- TODO: lecture asynchrone, ecriture synchrone IS OK
 		if rising_edge(CLK) then
 			
 			if RST = '0' then

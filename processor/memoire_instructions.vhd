@@ -36,11 +36,12 @@ entity memoire_instructions is
 end memoire_instructions;
 
 architecture Behavioral of memoire_instructions is
-	type registers_array is array (natural range 255 downto 0) of std_logic_vector (31 downto 0);
+	type registers_array is array (natural range 0 to 255) of std_logic_vector (31 downto 0);
 
 	signal registers: registers_array;
 begin
-	registers <= (x"07FF0000", x"00000000", x"00000000", x"00000000", x"08000300", x"00000000", x"00000000", x"00000000",x"03030201", x"00000000", x"00000000", x"00000000", x"06020300", x"06010200", others => x"00000000");
+	registers <= (x"06010200", x"06020600", x"00000000", x"00000000", x"00000000", x"03030201", x"00000000", x"00000000", x"00000000", x"08000300", x"07FF0000", others => x"00000000");
+	
 	process (CLK) is
 	begin
 	
